@@ -1,6 +1,6 @@
 # BFE.dev-solutions
 
-This repo holds the solutions for questions on BFE.dev.
+Thanks for using [BFE.dev](https://bfe.dev) and showing interest in contributing. This repo holds the solutions for questions on BFE.dev.
 
 We are creating solutions and also accept contributions.
 
