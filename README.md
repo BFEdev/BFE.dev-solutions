@@ -6,7 +6,7 @@ We are creating solutions and also accept contributions.
 
 # How it works
 
-For each question, there are markdown files with the format of `/{problem-type}/{permalink}_{language}.md`.
+For each question, there are markdown files with name of `/{problem-type}/{permalink}_{language}.md`.
 
 Latest version will be automatically reflected on [BFE.dev](https://bfe.dev) website with some delay.
 
