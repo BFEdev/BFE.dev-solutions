@@ -21,6 +21,7 @@ Latest version will be automatically reflected on [BFE.dev](https://bfe.dev) web
 Solution examples:
 
 [solution to problem 1. implement curry()](https://github.com/BFEdev/BFE.dev-solutions/blob/main/problem/implement-curry_en.md)
+
 [solution to quiz 1. Promise order](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/1-promise-order_en.md)
 
 
