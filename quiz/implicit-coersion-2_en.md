@@ -1,4 +1,20 @@
+# Task: #46. Implicit Coercion IV
 
-There is no solution yet.
+What does the code snippet output by console.log?
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/implicit-coersion-2_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+## Explanation:
+
+```javascript
+const foo = [0];
+if (foo) {
+  console.log(foo == true); // false - when using '==' both sides convert to numbers: 0 == 1 -> false
+} else {
+  console.log(foo == false);
+}
+```
+
+## Answer:
+
+```javascript
+false
+```

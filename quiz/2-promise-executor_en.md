@@ -1,4 +1,29 @@
+# Task: #2. Promise executor
 
-There is no solution yet.
+## Question:
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/2-promise-executor_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+What does the code snippet output by console.log?
+
+
+## Explanation:
+
+```javascript
+new Promise((resolve, reject) => {
+  resolve(1); // 1 will be printed, but next lines will be ignored
+  resolve(2);
+  reject("error");
+}).then(
+  (value) => {
+    console.log(value);
+  },
+  (error) => {
+    console.log("error");
+  }
+);
+```
+
+## Answer:
+
+```javascript
+1
+```

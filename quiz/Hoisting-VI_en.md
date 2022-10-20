@@ -1,4 +1,29 @@
+# Task: #45. Hoisting VI
 
-There is no solution yet.
+What does the code snippet output by console.log?
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/Hoisting-VI_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+## Explanation:
+
+```javascript
+var foo = 1;
+(function () {
+  // 'var foo = 3' is hoisted here -> var foo = undefined
+  console.log(foo);        // undefined - local variable
+  foo = 2;
+  console.log(window.foo); // 1 - window's variable
+  console.log(foo);        // 2 - local variable
+  var foo = 3;
+  console.log(foo);        // 3 - local variable
+  console.log(window.foo); // 1 - window's variable
+})();
+```
+
+## Answer:
+
+```javascript
+undefined
+1
+2
+3
+1
+```

@@ -1,4 +1,18 @@
+# Task: #37. push unshift
 
-There is no solution yet.
+What does the code snippet output by console.log?
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/push-unshift_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+## Explanation:
+
+```javascript
+const arr = [1, 2];
+arr.push(3, 4);
+arr.unshift(5, 6);
+console.log(arr); // [5,6,1,2,3,4] - just read about push() and unshift()
+```
+
+## Answer:
+
+```javascript
+[5,6,1,2,3,4]
+```

@@ -1,4 +1,28 @@
+# Task: #67. if
 
-There is no solution yet.
+What does the code snippet output by console.log?
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/if_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+## Explanation:
+
+```javascript
+if (true) {
+  function foo() {
+    console.log('BFE') // function declaration is hoisting
+  }
+}
+if (false) {
+  function bar() {
+    console.log('dev') // function declaration is hoisting
+  }
+}
+
+foo() // "BFE"
+bar() // "dev"
+```
+
+## Answer:
+
+```javascript
+"BFE"
+"dev"
+```

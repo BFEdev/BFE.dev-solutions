@@ -1,4 +1,35 @@
+# Task: #5. block scope
 
-There is no solution yet.
+## Question:
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/block-scope-1_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+What does the code snippet output by console.log?
+
+
+## Explanation:
+
+```javascript
+for (var i = 0; i < 5; i++) {
+  setTimeout(() => console.log(i), 0);
+}
+// VAR doesn't have block scope. FOR will log: 5 5 5 5 5
+
+for (let i = 0; i < 5; i++) {
+  setTimeout(() => console.log(i), 0);
+}
+// LET has block scope. FOR will log: 0 1 2 3 4 
+```
+
+## Answer:
+
+```javascript
+5
+5
+5
+5
+5
+0
+1
+2
+3
+4
+```

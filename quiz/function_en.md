@@ -1,4 +1,27 @@
+# Task: #70. function
 
-There is no solution yet.
+What does the code snippet output by console.log?
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/function_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+## Explanation:
+
+```javascript
+function foo() {
+  console.log(1);
+}
+var foo = 2;
+function foo() {
+  console.log(3);
+}
+foo(); // TypeError: foo is not a function
+
+/*
+  Function declarations take precedence over variable declarations
+  Variable assignment takes precedence over function declaration
+*/
+```
+
+## Answer:
+
+```javascript
+Error
+```

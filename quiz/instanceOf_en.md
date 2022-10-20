@@ -1,4 +1,43 @@
+# Task: #15. instanceOf
 
-There is no solution yet.
+What does the code snippet output by console.log?
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/instanceOf_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+## Explanation:
+
+```javascript
+console.log(typeof null);                          // "object" - 'null' has "object" type in js (backward compatibility)
+console.log(null instanceof Object);               // false - 'null' is primitive and doesn't have 'instanceof' keyword
+console.log(typeof 1);                             // "number" - one of js types
+console.log(1 instanceof Number);                  // false - '1' is primitive and doesn't have 'instanceof' keyword
+console.log(1 instanceof Object);                  // false - same as above
+console.log(Number(1) instanceof Object);          // false - Number(1) === 1 - same as above
+console.log(new Number(1) instanceof Object);      // true - 'new Number(1)' is object, so it's correct
+console.log(typeof true);                          // "boolean" - one of js types
+console.log(true instanceof Boolean);              // false - 'true' is primitive and doesn't have 'instanceof' keyword
+console.log(true instanceof Object);               // false - same as above
+console.log(Boolean(true) instanceof Object);      // false - Boolean(true) === true - same as above
+console.log(new Boolean(true) instanceof Object);  // true - 'new Boolean(true)' is object, so it's correct
+console.log([] instanceof Array);                  // true - '[]' is instanceof Array and Object
+console.log([] instanceof Object);                 // true - '[]' is instanceof Array and Object
+console.log((() => {}) instanceof Object);         // true - if it's not a primitive it's object. So callback is instanceof object
+```
+
+## Answer:
+
+```javascript
+"object"
+false
+"number"
+false
+false
+false
+true
+"boolean"
+false
+false
+false
+true
+true
+true
+true
+```

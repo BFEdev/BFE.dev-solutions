@@ -1,4 +1,20 @@
+# Task: #69. undefined
 
-There is no solution yet.
+## Question:
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/undefined_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+What does the code snippet output by console.log?
+
+## Explanation:
+
+```javascript
+function foo(a, b, undefined, undefined) {
+  console.log('BFE.dev'); // will not log, because function is not executed
+}
+console.log(foo.length); // 4 - function's length === count of function's arguments
+```
+
+## Answer:
+
+```javascript
+4
+```

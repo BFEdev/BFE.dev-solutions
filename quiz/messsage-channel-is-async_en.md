@@ -1,4 +1,47 @@
+# Task: #61. onClick
 
-There is no solution yet.
+What does the code snippet output by console.log?
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/messsage-channel-is-async_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+## Explanation:
+
+```javascript
+console.log(1)
+
+document.body.addEventListener('click', () => {
+  console.log(2)
+})
+
+Promise.resolve().then(() => {
+  console.log(3)
+})
+
+setTimeout(() => {
+  console.log(4)
+}, 0)
+
+console.log(5)
+
+document.body.click()
+
+console.log(6)
+
+/*
+1 - sync code
+5 - sync code
+2 - click now is sync
+6 - sync code
+3 - microtask
+4 - macrotask
+*/
+```
+
+## Answer:
+
+```javascript
+1
+5
+2
+6
+3
+4
+```

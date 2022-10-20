@@ -1,4 +1,20 @@
+# Task: #53. Prototype 2
 
-There is no solution yet.
+What does the code snippet output by console.log?
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/prototype2_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+## Explanation:
+
+```javascript
+function F() {
+  this.foo = 'bar';
+}
+
+const f = new F();
+console.log(f.prototype); // undefined
+```
+
+## Answer:
+
+```javascript
+undefined
+```

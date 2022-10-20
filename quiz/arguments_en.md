@@ -1,4 +1,24 @@
+# Task: #12. arguments
 
-There is no solution yet.
+What does the code snippet output by console.log?
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/arguments_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+## Explanation:
+
+```javascript
+function log(a, b, c, d) {
+  console.log(a, b, c, d); // 1, 2, 3, undefined - by default
+  arguments[0] = "bfe";
+  arguments[3] = "dev";
+
+  console.log(a, b, c, d); // "bfe", 2, 3, undefined - "d" is a rest parameter -> reverse default arguments behavior
+}
+
+log(1, 2, 3);
+```
+
+## Answer:
+
+```javascript
+1,2,3,undefined
+"bfe",2,3,undefined
+```

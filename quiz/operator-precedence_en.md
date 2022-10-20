@@ -1,4 +1,25 @@
+# Task: #13. Operator precedence
 
-There is no solution yet.
+What does the code snippet output by console.log?
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/operator-precedence_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+## Explanation:
+
+```javascript
+console.log(0 == 1 == 2); // false - false == 2
+console.log(2 == 1 == 0); // true - false == 0
+console.log(0 < 1 < 2);   // true - true < 2 => 1 < 2
+console.log(1 < 2 < 3);   // true - true < 3 => 1 < 3
+console.log(2 > 1 > 0);   // true - true > 0 => 1 > 0
+console.log(3 > 2 > 1);   // false - true > 1 => 1 > 1
+```
+
+## Answer:
+
+```javascript
+false
+true
+true
+true
+true
+false
+```

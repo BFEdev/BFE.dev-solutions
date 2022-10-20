@@ -1,4 +1,27 @@
+# Task: #44. Function call
 
-There is no solution yet.
+What does the code snippet output by console.log?
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/Function-call_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+## Explanation:
+
+```javascript
+function a() {
+  console.log(1);
+  return {
+    a: function () {
+      console.log(2);
+      return a();
+    },
+  };
+}
+
+a().a(); // 1, 2, 1
+```
+
+## Answer:
+
+```javascript
+1
+2
+1
+```

@@ -1,4 +1,27 @@
+# Task: #39. var
 
-There is no solution yet.
+## Question:
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/var_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+What does the code snippet output by console.log?
+
+## Explanation:
+
+```javascript
+function foo() {
+  console.log(i); // var will hoisted -> i === undefined
+  for (var i = 0; i < 3; i++) {
+    console.log(i);
+  }
+}
+
+foo(); // undefined, 0, 1, 2
+```
+
+## Answer:
+
+```javascript
+undefined
+0
+1
+2
+```

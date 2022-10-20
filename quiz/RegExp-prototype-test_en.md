@@ -1,4 +1,21 @@
+# Task: #40. RegExp.prototype.test
 
-There is no solution yet.
+What does the code snippet output by console.log?
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/RegExp-prototype-test_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+## Explanation:
+
+```javascript
+console.log(/^4\d\d$/.test('404'));   // true
+console.log(/^4\d\d$/.test(404));     // true - converts to string
+console.log(/^4\d\d$/.test(['404'])); // true - converts to string
+console.log(/^4\d\d$/.test([404]));   // true - converts to string
+```
+
+## Answer:
+
+```javascript
+true
+true
+true
+true
+```
