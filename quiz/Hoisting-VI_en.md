@@ -1,5 +1,15 @@
 # Task: #45. Hoisting VI
 
+## Tags: 
+
+JavaScript
+
+## Difficulty:
+
+Easy
+
+## Question:
+
 What does the code snippet output by console.log?
 
 ## Explanation:

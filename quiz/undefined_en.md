@@ -1,5 +1,13 @@
 # Task: #69. undefined
 
+## Tags: 
+
+JavaScript
+
+## Difficulty:
+
+Easy
+
 ## Question:
 
 What does the code snippet output by console.log?

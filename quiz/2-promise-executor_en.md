@@ -1,9 +1,16 @@
 # Task: #2. Promise executor
 
+## Tags: 
+
+JavaScript, Promise
+
+## Difficulty:
+
+Easy
+
 ## Question:
 
 What does the code snippet output by console.log?
-
 
 ## Explanation:
 

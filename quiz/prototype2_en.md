@@ -1,5 +1,15 @@
 # Task: #53. Prototype 2
 
+## Tags: 
+
+JavaScript
+
+## Difficulty:
+
+Easy
+
+## Question:
+
 What does the code snippet output by console.log?
 
 ## Explanation:

@@ -1,9 +1,16 @@
 # Task: #5. block scope
 
+## Tags: 
+
+JavaScript
+
+## Difficulty:
+
+Easy
+
 ## Question:
 
 What does the code snippet output by console.log?
-
 
 ## Explanation:
 

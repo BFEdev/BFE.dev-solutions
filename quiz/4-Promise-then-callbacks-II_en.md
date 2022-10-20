@@ -1,9 +1,16 @@
 # Task: #4. Promise then callbacks II
 
+## Tags: 
+
+JavaScript, Promise
+
+## Difficulty:
+
+Easy
+
 ## Question:
 
 What does the code snippet output by console.log?
-
 
 ## Explanation:
 

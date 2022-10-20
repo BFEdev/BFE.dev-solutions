@@ -1,5 +1,15 @@
 # Task: #16. parseInt
 
+## Tags: 
+
+JavaScript
+
+## Difficulty:
+
+Easy
+
+## Question: 
+
 What does the code snippet output by console.log?
 
 ## Explanation:

@@ -1,5 +1,13 @@
 # Task: #8. Implicit Coercion I
 
+## Tags: 
+
+JavaScript
+
+## Difficulty:
+
+Easy
+
 ## Question:
 
 What does the code snippet output by console.log?

@@ -1,5 +1,15 @@
 # Task: #13. Operator precedence
 
+## Tags: 
+
+JavaScript
+
+## Difficulty:
+
+Easy
+
+## Question:
+
 What does the code snippet output by console.log?
 
 ## Explanation:

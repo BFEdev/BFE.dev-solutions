@@ -1,9 +1,16 @@
 # Task: #6. Arrow Function
 
+## Tags: 
+
+JavaScript
+
+## Difficulty:
+
+Medium
+
 ## Question:
 
 What does the code snippet output by console.log?
-
 
 ## Explanation:
 

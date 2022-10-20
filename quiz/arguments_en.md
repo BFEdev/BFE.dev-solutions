@@ -1,5 +1,16 @@
 # Task: #12. arguments
 
+
+## Tags: 
+
+JavaScript
+
+## Difficulty:
+
+Medium
+
+## Question:
+
 What does the code snippet output by console.log?
 
 ## Explanation:

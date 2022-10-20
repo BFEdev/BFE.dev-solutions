@@ -1,5 +1,15 @@
 # Task: #67. if
 
+## Tags: 
+
+JavaScript
+
+## Difficulty:
+
+Medium
+
+## Question:
+
 What does the code snippet output by console.log?
 
 ## Explanation:

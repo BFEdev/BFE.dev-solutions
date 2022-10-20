@@ -1,5 +1,13 @@
 # Task: #1. Promise order
 
+## Tags: 
+
+JavaScript, Promise
+
+## Difficulty:
+
+Easy
+
 ## Question:
 
 What does the code snippet output by console.log?
