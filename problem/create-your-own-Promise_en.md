@@ -1,4 +1,1090 @@
+## Problem Analysis
 
-There is no solution yet.
+### The Constructor of `MyPromise`
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/problem/create-your-own-Promise_en.md)? [Contribute guidline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+The `promise` object created by the class `Promise` has a `state` property. Initially, the `state` is `pending`. Thus, in the constructor of the `MyPromise` class, we would define a property `state` and initialize it to `'pending'`.
+
+```js
+class MyPromise {
+  #state;
+
+  constructor() {
+    this.#state = 'pending';
+  }
+}
+```
+
+&nbsp;
+
+### Handling the function passed to `new Promise()`
+
+The function is called the **executor**. It is executed immediately and automatically by `new Promise()` and is able to either `resolve` or `reject` the promise. Hence, we would call the function in the `constructor` with the arguments `resolve` and `reject`.
+
+If the executor function throws any errors, the promise will be rejected. To address this, we could make use of the `try...catch` statement and reject the promise in the `catch` block.
+
+```js
+class MyPromise {
+  constructor(executor) {
+    // ...
+    try {
+      executor(/* resolve */, /* reject */);
+    } catch (error) {
+      // reject the promise
+    }
+  }
+}
+```
+
+&nbsp;
+
+### Implementing `resolve` and `reject` passed to the executor function
+
+A executor function that resolves the promise looks like this:
+
+```js
+function(resolve, reject) {
+  setTimeout(() => {
+    resolve('Done!');
+  }, 1000);
+}
+```
+
+A executor function that rejects the promise looks like so:
+
+```js
+ function(resolve, reject) {
+  setTimeout(() => {
+    reject(new Error('Something went wrong!'));
+  }, 1000);
+}
+```
+
+Therefore `resolve` and `reject` are both functions which receive one argument. We could define the two methods on the class `MyPromise` with the following signatures:
+
+```js
+class MyPromise {
+  // ...
+
+  #resolve(value) {}
+
+  #reject(reason) {}
+}
+```
+
+When `resolve()` is called, the `state` of the `promise` is changed to `'fulfilled'`; when `reject()` is called, the `state` is changed to `'rejected'`.
+
+Besides the `state` property, the `promise` object also has a `result` property to store the promise result. Initially, it is set to `undefined`. Its value changes either to the resolved value if `resolve()` is called, or to the rejected value if `reject()` is called.
+
+In addition, a `Promise` can only be resolved or rejected once.
+
+Thus, we could implement our `resolve()` and `reject()` methods like so:
+
+```js
+#resolve(value) {
+  // Ensure the promise is only resolved or rejected once.
+  if (this.#state !== 'pending') return;
+
+  this.#state = 'fulfilled';
+  this.#result = value;
+}
+
+#reject(reason) {
+  // Ensure the promise is only resolved or rejected once.
+  if (this.#state !== 'pending') return;
+
+  this.#state = 'rejected';
+  this.#result = reason;
+}
+```
+
+Since `this.#resolve()` and `this.#reject()` are passed to the executor function as parameters, [`this` inside the two methods will refer to the global object instead of the `promise` object](https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/this%20%26%20object%20prototypes/ch2.md#implicitly-lost). Therefore we need to `bind` both methods in the `constructor` or use the experimental fat arrow class methods.
+
+&nbsp;
+
+### Implementing the `then()` method
+
+`Promise.prototype.then()` takes up to two arguments:
+
+1.  The first argument is a function that is invoked when the promise is resolved, and receives the promise result. If it is not a function, it is replaced with a function that simply returns the received result.
+
+2.  The second argument is a function that runs when the promise is rejected, and receives the reason. If it is not a function, it is replaced with a "Thrower" function.
+
+```js
+promise.then(
+  (value) => {
+    // handle a successful value
+  },
+  (reason) => {
+    // handle the reason
+  }
+);
+```
+
+Both arguments are optional.
+
+The `Promise.prototype.then()` returns a `Promise`:
+
+```js
+const promise = Promise.resolve('from promise');
+const thenPromise = promise.then((result) => {});
+
+console.log(promise);
+// Promise {
+//   [[PromiseState]]: 'fulfilled',
+//   [[PromiseResult]]: 'from promise',
+// }
+console.log(thenPromise);
+// Promise {
+//   [[PromiseState]]: 'pending',
+//   [[PromiseResult]]: undefined,
+// }
+
+setTimeout(() => {
+  console.log(thenPromise);
+});
+// Promise {
+//   [[PromiseState]]: 'fulfilled',
+//   [[PromiseResult]]: undefined,
+// }
+```
+
+Hence, the `then` method of the class `MyPromise` would look like this:
+
+```js
+then(onFulfilled, onRejected) {
+  // to do
+
+  return new MyPromise((resolve, reject) => {});
+}
+```
+
+1. **Handling the first argument in our `then()` method**
+
+   Since the callback function runs when the promise is resolved, it cannot be executed within the `then()` method.
+
+   For example:
+
+   ```js
+   class MyPromise {
+     #state;
+     #result;
+
+     constructor(executor) {
+       this.#state = 'pending';
+       this.#result = undefined;
+
+       try {
+         executor(this.#resolve.bind(this), this.#reject.bind(this));
+       } catch (error) {
+         this.#reject(error);
+       }
+     }
+
+     #resolve(value) {
+       // ...
+       this.#state = 'fulfilled';
+       this.#result = value;
+     }
+
+     then(onFulfilled) {
+       onFulfilled(this.#result);
+     }
+   }
+
+   const p = new MyPromise((resolve) => {
+     resolve(10);
+   }).then((value) => {
+     console.log(value); // 10
+   });
+   ```
+
+   Although the code above seems to work, it doesn't work as intended when the promise is resolved asynchronously, even if the `onFulfilled()` is called asynchronously:
+
+   ```js
+   class MyPromise {
+     // ...
+
+     then(onFulfilled) {
+       // Call `onFulfilled()` asynchronously.
+       queueMicrotask(() => {
+         onFulfilled(this.#result);
+       });
+     }
+   }
+
+   const p = new MyPromise((resolve) => {
+     setTimeout(() => {
+       resolve(10);
+     }, 0);
+   }).then((value) => {
+     console.log(value); // undefined
+   });
+   ```
+
+   Therefore, the `onFulfilled()` function should be called within the `#resolve()` method and the `then()` method just registers the `onFulfilled()` function. The `onFulfilled()` function is like a subscriber, subscribing to the promised result, and the `then()` method is kind of like the function `subscribe()` in the Publisher/Subscriber Pattern, which receives subscriber callbacks and stores/registers them in some data structures.
+
+   ```js
+   class MyPromise {
+     // ...
+     #onFulfilled;
+
+     constructor(executor) {
+       // ...
+       this.#onFulfilled = undefined;
+       // ...
+     }
+
+     #resolve(value) {
+       //...
+       this.#onFulfilled(this.#result);
+     }
+
+     // ...
+
+     then(onFulfilled) {
+       // If `onFulfilled` is not a function, replace it with a function
+       // that simply returns the received result.
+       this.#onFulfilled =
+         typeof onFulfilled === 'function' ? onFulfilled : (value) => value;
+
+       return new Promise((resolve, reject) => {});
+     }
+   }
+   ```
+
+   Although the `then` method will be triggered instantly, the callback functions (handlers) will be invoked asynchronously. `Promise` uses the _microtask_ queue to run the callbacks. When a promise is settled, its `then` handlers are add into the microtask queue. [The microtasks get run whenever JavaScript finishes executing, in other words, whenever the JavaScript stack becomes empty](https://youtu.be/cCOL7MC4Pl0?t=1475):
+
+   ```js
+   console.log('Start!');
+
+   setTimeout(() => {
+     console.log('Timeout!');
+   }, 0);
+
+   Promise.resolve('Promise!').then((value) => {
+     console.log(value);
+   });
+
+   console.log('End!');
+
+   // Logs:
+   // 'Start!'
+   // 'End!'
+   // 'Promise!'
+   // 'Timeout!'
+   ```
+
+   To queue an function for execution in the microtask queue, we could use the function [queueMicrotask()](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/queueMicrotask):
+
+   ```js
+   #resolve(value) {
+     //...
+     queueMicroTask(() => {
+       this.#onFulfilled(this.#result);
+     });
+   }
+   ```
+
+   Next, we need to handle the value returned by the `onFulfilled()` function.
+
+   In the `Promise`, if the `onFulfilled()` function:
+
+   - returns a value, the promise returned by `then()` gets resolved with the returned value as its value.
+
+     ```js
+     const promise = Promise.resolve('from promise');
+
+     const thenPromise = promise.then((value) => {
+       return 'from then handler';
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise);
+     });
+     // Promise {
+     //   [[PromiseState]]: 'fulfilled',
+     //   [[PromiseResult]]: 'from then handler',
+     // }
+     ```
+
+   - doesn't return anything, the promise returned by `then()` gets resolved with an `undefined` value.
+
+     ```js
+     const promise = Promise.resolve('from promise');
+
+     const thenPromise = promise.then((value) => {
+       console.log(value); // 'from promise'
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise);
+     });
+     // Promise {
+     //   [[PromiseState]]: 'fulfilled',
+     //   [[PromiseResult]]: undefined,
+     // }
+     ```
+
+   - throws an error, the promise returned by `then()` gets rejected with the error as its value.
+
+     ```js
+     const promise = Promise.resolve('from promise');
+
+     const thenPromise = promise.then((value) => {
+       throw new Error('error from then handler');
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise);
+     });
+     // Promise {
+     //   [[PromiseState]]: 'rejected',
+     //   [[PromiseResult]]: Error: error from then handler.
+     // }
+     ```
+
+   - returns an already fulfilled promise, the promise returned by `then()` gets resolved with that promise's value as its value.
+
+     ```js
+     const promise = Promise.resolve('from promise');
+
+     const thenPromise = promise.then((value) => {
+       return Promise.resolve('resolved promise returned by then handler');
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise);
+     });
+     // Promise {
+     //   [[PromiseState]]: 'fulfilled',
+     //   [[PromiseResult]]: 'resolved promise returned by then handler',
+     // }
+     ```
+
+   - returns an already rejected promise, the promise returned by `then()` gets rejected with that promise's value as its value.
+
+     ```js
+     const promise = Promise.resolve('promise');
+
+     const thenPromise = promise.then((value) => {
+       return Promise.reject('rejected promise returned by then handler');
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise);
+     });
+     // Promise {
+     //   [[PromiseState]]: 'rejected',
+     //   [[PromiseResult]]: 'rejected promise returned by then handler',
+     // }
+     ```
+
+   - returns a **pending** promise, the promise returned by `then()` gets resolved or rejected after the the promise returned by the handler gets resolved or rejected. The resolved value of the promise returned by `then()` will be the same as the resolved value of the promise returned by the handler.
+
+     ```js
+     const promise = Promise.resolve('promise');
+
+     const thenPromise = promise.then((value) => {
+       return new Promise((resolve, reject) => {
+         setTimeout(() => {
+           resolve('resolved promise returned by then handler');
+         }, 3000);
+       });
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise); // Promise {<pending>}
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise);
+       // Promise {<fulfilled>: "resolved promise returned by then handler"}
+     }, 4000);
+     ```
+
+   Therefore, we need to make the `resolve()` and `reject()` of the promise returned by `then()` available in the `#resolve()` method, so that they can be invoked with the value returned by the `onFulfilled()` function. We could define two properties on `MyPromise` to store both functions:
+
+   ```js
+   class MyPromise {
+     // ...
+     #thenPromiseResolve;
+     #thenPromiseReject;
+
+     constructor(executor) {
+       // ...
+       this.#thenPromiseResolve = undefined;
+       this.#thenPromiseReject = undefined;
+
+       // ...
+     }
+
+     // ...
+
+     then(onFulfilled) {
+       // ...
+       return new Promise((resolve, reject) => {
+         this.#thenPromiseResolve = resolve;
+         this.#thenPromiseReject = reject;
+       });
+     }
+   }
+   ```
+
+   If the `onFulfilled()` function returns a value or `undefined`, we could just call `this.#thenPromiseResolve()` and pass the return value to it:
+
+   ```js
+    #resolve(value) {
+      // ...
+      queueMicroTask(() => {
+        const returnValue = this.#onFulfilled(this.#result);
+
+        if (!(returnValue instanceof MyPromise)) {
+          this.#thenPromiseResolve(returnValue);
+        } else {
+          // do something else
+        }
+     });
+   }
+   ```
+
+   If the return value is an instance of `MyPromise`, we need to wait for the promise to be settled and then resolve/reject the promise returned by the `then()` method. To accomplish this, we could call the `then()` method of the return value, passing `this.#thenPromiseResolve` and `this.#thenPromiseReject` as the `then` handlers.
+
+   ```js
+   #resolve(value) {
+     // ...
+     queueMicroTask(() => {
+       const returnValue = this.#onFulfilled(this.#result);
+
+       if (!(returnValue instanceof MyPromise)) {
+         this.#thenPromiseResolve(returnValue);
+       } else {
+         returnValue.then(
+           this.#thenPromiseResolve,
+           this.#thenPromiseReject,
+         );
+       }
+     });
+   }
+   ```
+
+   To catch any errors thrown by the `this.#onFulfilled()` function, we could use a `try...catch` statement:
+
+   ```js
+   #resolve(value) {
+     // ...
+     queueMicroTask(() => {
+       try {
+        // ...
+       } catch (error) {
+         this.#thenPromiseReject(error);
+       }
+     });
+   }
+   ```
+
+   In addition, we also need to ensure `this.#onFulfilled` is not `undefined`, since `then()` might not be called:
+
+   ```js
+   const promise = Promise.resolve('foo');
+
+   promise.then((result) => {
+     return 'bar';
+   });
+   // The promise returned by `then` is resolved, but there
+   // is no further action with the promise. Therefore, when
+   // the`#resolve()` method of the returned promise runs,
+   // `this.#onFulfilled` would be `undefined`.
+   ```
+
+2. **Handling the second argument in our `then()` method**
+
+   The second callback function runs when the promise is rejected. Like the first argument, the `then()` method should register the second callback function, so that `#reject()` can execute it asynchronously whenever the promise is rejected:
+
+   ```js
+   class MyPromise {
+     // ...
+     #onRejected;
+
+     constructor(executor) {
+       // ...
+       this.#onRejected = undefined;
+       // ...
+     }
+
+     // ...
+
+     #reject(reason) {
+       //...
+       queueMicrotask(() => {
+         this.#onRejected(this.#result);
+       });
+     }
+
+     // ...
+
+     then(onFulfilled, onRejected) {
+       // ...
+
+       // If `onRejected` is not a function, replace it with a
+       // function that throws the received argument.
+       this.#onRejected =
+         typeof onRejected === 'function'
+           ? onRejected
+           : (reason) => {
+               throw reason;
+             };
+
+       // ...
+     }
+   }
+   ```
+
+   Now we need to handle the value returned by the `onRejected()` function.
+
+   In the `Promise`, if the `onRejected`:
+
+   - is not a function, the `onRejected` is replaced with a function that throws the received argument, and the promise returned by `then()` gets rejected with that promise's value as its value.
+
+     ```js
+     const promise = Promise.reject('error from promise');
+
+     const thenPromise = promise.then((value) => {});
+
+     setTimeout(() => {
+       console.log(thenPromise);
+     });
+     // Uncaught (in promise) error from promise
+     // Promise {
+     //   [[PromiseState]]: 'rejected',
+     //   [[PromiseResult]]: 'error from promise',
+     // }
+     ```
+
+   - throws an error, the promise returned by `then()` gets rejected with the thrown error as its value.
+
+     ```js
+     const promise = Promise.reject('error from promise');
+
+     const thenPromise = promise.then(null, (reason) => {
+       throw new Error('Error from onRejected');
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise);
+     });
+     // Promise {
+     //   [[PromiseState]]: 'rejected',
+     //   [[PromiseResult]]: Error: Error from onRejected
+     // }
+     ```
+
+   - doesn't return anything, the promise returned by `then()` gets resolved with an `undefined` value.
+
+     ```js
+     const promise = Promise.reject('error from promise');
+
+     const thenPromise = promise.then(null, (reason) => {
+       console.log(reason);
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise);
+     });
+     // Promise {
+     //   [[PromiseState]]: 'fulfilled',
+     //   [[PromiseResult]]: undefined
+     // }
+     ```
+
+   - returns a value, the promise returned by `then()` gets resolved with the returned value as its value.
+
+     ```js
+     const promise = Promise.reject('error from promise');
+
+     const thenPromise = promise.then(null, (reason) => {
+       return 'value returned by onRejected handler';
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise);
+     });
+     // Promise {
+     //   [[PromiseState]]: 'fulfilled',
+     //   [[PromiseResult]]: 'value returned by onRejected handler'
+     // }
+     ```
+
+   - returns an already fulfilled promise, the promise returned by `then()` gets resolved with that promise's value as its value.
+
+     ```js
+     const promise = Promise.reject('error from promise');
+
+     const thenPromise = promise.then(null, (reason) => {
+       return Promise.resolve(
+         'resolved promise returned by onRejected handler'
+       );
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise);
+     });
+     // Promise {
+     //   [[PromiseState]]: 'fulfilled',
+     //   [[PromiseResult]]: 'resolved promise returned by onRejected handler'
+     // }
+     ```
+
+   - returns an already rejected promise, the promise returned by `then()` gets rejected with that promise's value as its value.
+
+     ```js
+     const promise = Promise.reject('error from promise');
+
+     const thenPromise = promise.then(null, (reason) => {
+       return Promise.reject('rejected promise returned by onRejected handler');
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise);
+     });
+     // Promise {
+     //   [[PromiseState]]: 'rejected',
+     //   [[PromiseResult]]: 'rejected promise returned by onRejected handler'
+     // }
+     ```
+
+   - returns a **pending** promise, the promise returned by `then()` gets resolved or rejected after the promise returned by the handler gets resolved or rejected.
+
+     ```js
+     const promise = Promise.reject('error from promise');
+
+     const thenPromise = promise.then(null, (reason) => {
+       return new Promise((resolve, reject) => {
+         setTimeout(() => {
+           resolve('resolved promise returned by onRejected handler');
+         }, 3000);
+       });
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise); // Promise {<pending>}
+     });
+
+     setTimeout(() => {
+       console.log(thenPromise);
+       // Promise {<fulfilled>: "resolved promise returned by onRejected handler"}
+     }, 4000);
+     ```
+
+   As we can see it is basically the same as the `onFulfilled()`. We could update our `#reject()` method like below:
+
+   ```js
+   #reject(reason) {
+     // ...
+     queueMicrotask(() => {
+       if (!this.#onRejected) return;
+
+       try {
+         const returnValue = this.#onRejected(this.#result);
+
+         if (!(returnValue instanceof MyPromise)) {
+           this.#thenPromiseResolve(returnValue);
+         } else {
+           returnValue.then(this.#thenPromiseResolve, this.#thenPromiseReject);
+         }
+       } catch (error) {
+         this.#thenPromiseReject(error);
+       }
+     });
+   }
+   ```
+
+&nbsp;
+
+### Implementing the `catch()` method
+
+In the `Promise`, we can also use the `catch()` method to handle rejected cases. The `Promise.prototype.catch()` also returns a `Promise`.
+
+The syntax is:
+
+```js
+const promise1 = new Promise((resolve, reject) => {
+  throw 'Uh-oh!';
+});
+
+promise1.catch((error) => {
+  console.error(error);
+});
+// expected output: Uh-oh!
+```
+
+Calling the `catch()` method is exactly the same as calling `Promise.prototype.then(null, errorHandlingFunction)`. [In fact, calling obj.catch(onRejected) internally calls obj.then(undefined, onRejected)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch).
+
+Hence, we could implement our `catch()` method this way:
+
+```js
+catch(onRejected) {
+  return this.then(null, onRejected);
+}
+```
+
+&nbsp;
+
+#### Implementing the static method `MyPromise.resolve()`
+
+In the native `Promise`, the static method `Promise.resolve()` returns a `Promise` object that is resolved with a given value:
+
+- Resolving a string:
+
+  ```js
+  Promise.resolve('Success').then(
+    (value) => {
+      console.log(value); // "Success"
+    },
+    (reason) => {
+      // not called
+    }
+  );
+  ```
+
+- Resolving another `Promise`:
+
+  ```js
+  const original = Promise.resolve(33);
+  const cast = Promise.resolve(original);
+  cast.then(function (value) {
+    console.log('value: ' + value);
+  });
+  console.log('original === cast?: ' + (original === cast));
+
+  // logs:
+  // original === cast?: true
+  // value: 33
+  ```
+
+It is worth pointing out that [Promise.resolve() also handle the case where the value is a thenable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve#resolving_thenables_and_throwing_errors). However, we don't need to cover it here.
+
+In `MyPromise.resolve()`, we could first check if the value received is an instance of `MyPromise`. If it is, we could just return it. Otherwise we return a new instance of `MyPromise` and resolve the promise with the given value.
+
+```js
+static resolve(value) {
+  if (value instanceof MyPromise) return value;
+
+  return new MyPromise((resolve) => {
+    resolve(value);
+  });
+}
+```
+
+&nbsp;
+
+### Implementing the static method `MyPromise.reject()`
+
+In the native `Promise`, the static method `Promise.reject()` returns a `Promise` object that is rejected with a given reason:
+
+```js
+Promise.reject(new Error('fail')).then(
+  (value) => {
+    // not called
+  },
+  (reason) => {
+    console.log(reason); // Error: fail
+  }
+);
+```
+
+We could implement our `MyPromise.reject()` like this:
+
+```js
+static reject(reason) {
+  return new MyPromise((_, reject) => {
+    reject(reason);
+  });
+}
+```
+
+&nbsp;
+
+## Implementation
+
+```js
+class MyPromise {
+  #state;
+  #result;
+  #onFulfilled;
+  #onRejected;
+  #thenPromiseResolve;
+  #thenPromiseReject;
+
+  constructor(executor) {
+    this.#state = 'pending';
+    this.#result = undefined;
+    this.#onFulfilled = undefined;
+    this.#onRejected = undefined;
+    this.#thenPromiseResolve = undefined;
+    this.#thenPromiseReject = undefined;
+
+    try {
+      executor(this.#resolve.bind(this), this.#reject.bind(this));
+    } catch (error) {
+      this.#reject(error);
+    }
+  }
+
+  #resolve(value) {
+    if (this.#state !== 'pending') return;
+
+    this.#state = 'fulfilled';
+    this.#result = value;
+
+    queueMicrotask(() => {
+      if (
+        !this.#onFulfilled ||
+        !this.#thenPromiseResolve ||
+        !this.#thenPromiseReject
+      ) {
+        return;
+      }
+
+      try {
+        const returnValue = this.#onFulfilled(this.#result);
+
+        if (!(returnValue instanceof MyPromise)) {
+          this.#thenPromiseResolve(returnValue);
+        } else {
+          returnValue.then(this.#thenPromiseResolve, this.#thenPromiseReject);
+        }
+      } catch (error) {
+        this.#thenPromiseReject(error);
+      }
+    });
+  }
+
+  #reject(reason) {
+    if (this.#state !== 'pending') return;
+
+    this.#state = 'rejected';
+    this.#result = reason;
+
+    queueMicrotask(() => {
+      if (
+        !this.#onRejected ||
+        !this.#thenPromiseResolve ||
+        !this.#thenPromiseReject
+      ) {
+        return;
+      }
+
+      try {
+        const returnValue = this.#onRejected(this.#result);
+
+        if (!(returnValue instanceof MyPromise)) {
+          this.#thenPromiseResolve(returnValue);
+        } else {
+          returnValue.then(this.#thenPromiseResolve, this.#thenPromiseReject);
+        }
+      } catch (error) {
+        this.#thenPromiseReject(error);
+      }
+    });
+  }
+
+  then(onFulfilled, onRejected) {
+    // Register consuming functions.
+    this.#onFulfilled =
+      typeof onFulfilled === 'function' ? onFulfilled : (value) => value;
+    this.#onRejected =
+      typeof onRejected === 'function'
+        ? onRejected
+        : (reason) => {
+            throw reason;
+          };
+
+    return new MyPromise((resolve, reject) => {
+      // Register `resolve` and `reject`, so that we can
+      // resolve or reject this promise in `#resolve`
+      // or `#reject`.
+      this.#thenPromiseResolve = resolve;
+      this.#thenPromiseReject = reject;
+    });
+  }
+
+  catch(onRejected) {
+    return this.then(undefined, onRejected);
+  }
+
+  static resolve(value) {
+    if (value instanceof MyPromise) return value;
+
+    return new MyPromise((resolve) => {
+      resolve(value);
+    });
+  }
+
+  static reject(reason) {
+    return new MyPromise((_, reject) => {
+      reject(reason);
+    });
+  }
+}
+```
+
+## Note:
+
+The above solution doesn't handle the following cases:
+
+1. When calling the `then()` method asynchronously, it wouldn't properly trigger the handler passed to `then()`. (Credits to [L1ef6Zi](https://bigfrontend.dev/user/L1ef6Zi)
+
+   For instance:
+
+   ```js
+   const promise = MyPromise.resolve(1);
+
+   setTimeout(() => {
+     promise.then(console.log);
+   });
+   ```
+
+   To handle this, we could check the state of the promise in the `then()` method. If the promise is already fulfilled, we could execute the `onFulfilled()` immediately.
+
+2. The `#resolve()` doesn't handle the case when the initial resolved value is a promise. (Credits to [L1ef6Zi](https://bigfrontend.dev/user/L1ef6Zi)
+
+   For example:
+
+   ```js
+   const promise = new Promise((resolve) => {
+     resolve(Promise.resolve(1));
+   });
+   // `PromiseResult` is `1`
+
+   const promise = new MyPromise((resolve) => {
+     resolve(MyPromise.resolve(1));
+   });
+   // `PromiseResult` is another promise
+   ```
+
+   To address this, we could check whether the `value` is an instance of `MyPromise` in the `#resolve()` method. If that is the case, we could call the `value`'s `then()` method and pass in `(value) => { this.#result = value; }` as the parameter:
+
+   ```js
+   class MyPromise {
+     // ...
+
+     #resolve(value) {
+       // ...
+
+       if (value instanceof MyPromise) {
+         value.then((value) => {
+           this.#state = 'fulfilled';
+           this.#result = value;
+         });
+       } else {
+         this.#state = 'fulfilled';
+         this.#result = value;
+       }
+
+       // ...
+     }
+
+     // ...
+   }
+
+   const myPromise1 = new MyPromise((resolve) => {
+     resolve(MyPromise.resolve(1));
+   });
+   console.log('myPromise1: ', myPromise1);
+
+   const promise1 = new Promise((resolve) => {
+     resolve(Promise.resolve(1));
+   });
+   console.log('promise1: ', promise1);
+
+   // logs (Chrome):
+   // myPromise1:  MyPromise {state: 'pending'}
+   // promise1:  Promise {<pending>}
+   //
+   // When we expand the object, we get:
+   // MyPromise {
+   //   #result: 1
+   //   #state: "fulfilled"
+   // }
+   // Promise {
+   //   [[PromiseState]]: "fulfilled"
+   //   [[PromiseResult]]: 1
+   // }
+
+   const myPromise2 = new MyPromise((resolve) => {
+     resolve(
+       new MyPromise((resolve) => {
+         setTimeout(() => {
+           resolve(1);
+         }, 1000);
+       })
+     );
+   });
+   console.log('myPromise2: ', myPromise2);
+
+   const promise2 = new Promise((resolve) => {
+     resolve(
+       new Promise((resolve) => {
+         setTimeout(() => {
+           resolve(1);
+         }, 1000);
+       })
+     );
+   });
+   console.log('promise2: ', promise2);
+
+   // logs (Chrome):
+   // myPromise2:  MyPromise {state: 'pending'}
+   // Promise {<pending>}
+   //
+   // When we expand the object, we get:
+   // MyPromise {
+   //   #result: 1
+   //   #state: "fulfilled"
+   // }
+   // Promise {
+   //   [[PromiseState]]: "fulfilled"
+   //   [[PromiseResult]]: 1
+   // }
+   ```
+
+3. The solution doesn't handle multiple `then()` for the same promise. (Credits to [1aN6SC9](https://bigfrontend.dev/user/1aN6SC9))
+
+   For example:
+
+   ```js
+   const promise = new Promise((resolve, reject) => {
+     setTimeout(() => {
+       resolve(44);
+     }, 1000);
+   });
+   promise.then((value) => console.log('value1: ', value));
+   promise.then((value) => console.log('value2: ', value));
+   // logs:
+   // value1: 44
+   // value2: 44
+
+   const myPromise = new MyPromise((resolve, reject) => {
+     setTimeout(() => {
+       resolve(44);
+     }, 1000);
+   });
+   myPromise.then((value) => console.log('value1: ', value));
+   myPromise.then((value) => console.log('value2: ', value));
+   // logs:
+   // value2: 44
+   ```
+
+   To handle this, we could use an array to store the `then` handlers.
+
+## Reference
+
+- [Promises](https://javascript.info/promise-basics)
+- [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+- [Promise.prototype.then()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then)
+- [Promise.prototype.catch()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch)
+- [Promise.resolve()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve)
+- [Promise.reject()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject)
+- [Using microtasks in JavaScript with queueMicrotask()](https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API/Microtask_guide)
+- [Event loop: microtasks and macrotasks](https://javascript.info/event-loop)
+- [Microtasks](https://javascript.info/microtask-queue)
