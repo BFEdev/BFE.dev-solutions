@@ -18,6 +18,10 @@ Latest version will be automatically reflected on [BFE.dev](https://bfe.dev) web
 4. The smaller PR you create, the sooner it could get merged. 
 
 
-Here is an example you can look at [solution to problem 1. implement curry()](https://github.com/BFEdev/BFE.dev-solutions/blob/main/problem/implement-curry_en.md)
+Solution examples:
+
+[solution to problem 1. implement curry()](https://github.com/BFEdev/BFE.dev-solutions/blob/main/problem/implement-curry_en.md)
+[solution to quiz 1. Promise order](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/1-promise-order_en.md)
+
 
 This is a live document for the contribution guideline. We might change it without any notice. 
