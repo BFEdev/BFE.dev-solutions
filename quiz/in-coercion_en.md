@@ -102,16 +102,16 @@ What it says is basically
 
 [The ECMAScript spec](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-tostring) is simply a mapping table.
 
-| Argument Type | Result                                                                                                           |
-| ------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Undefined     | Return `"undefined"`.                                                                                            |
-| Null          | Return `"null"`.                                                                                                 |
-| Boolean       | If argument is true, return `"true"`. If argument is false, return `"false"`.                                    |
-| Number        | Return Number::toString(argument, 10).                                                                           |
-| String        | Return argument.                                                                                                 |
-| Symbol        | Throw a TypeError exception.                                                                                     |
-| BigInt        | Return BigInt::toString(argument, 10).                                                                           |
-| Object        | Apply the following steps: 1. Let primValue be ? ToPrimitive(argument, string). 2. Return ? ToString(primValue). |
+> | Argument Type | Result                                                                                                           |
+> | ------------- | ---------------------------------------------------------------------------------------------------------------- |
+> | Undefined     | Return `"undefined"`.                                                                                            |
+> | Null          | Return `"null"`.                                                                                                 |
+> | Boolean       | If argument is true, return `"true"`. If argument is false, return `"false"`.                                    |
+> | Number        | Return Number::toString(argument, 10).                                                                           |
+> | String        | Return argument.                                                                                                 |
+> | Symbol        | Throw a TypeError exception.                                                                                     |
+> | BigInt        | Return BigInt::toString(argument, 10).                                                                           |
+> | Object        | Apply the following steps: 1. Let primValue be ? ToPrimitive(argument, string). 2. Return ? ToString(primValue). |
 
 ## HasProperty
 
