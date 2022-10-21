@@ -42,50 +42,50 @@ According to the [spec of addition operator +](https://tc39.es/ecma262/multipage
 
 Let's take a look at the spec.
 
-1. If _opText_ is **+**, then
-   1. Let _lprim_ be ? ToPrimitive(lval).
-   2. Let _rprim_ be ? ToPrimitive(rval).
-   3. If _lprim_ is a String or _rprim_ is a String, then
-      1. Let _lstr_ be ? ToString(lprim).
-      2. Let _rstr_ be ? ToString(rprim).
-      3. Return the string-concatenation of _lstr_ and _rstr_.
-   4. Set _lval_ to lprim.
-   5. Set _rval_ to rprim.
-2. NOTE: At this point, it must be a numeric operation.
-3. Let _lnum_ be ? ToNumeric(lval).
-4. Let _rnum_ be ? ToNumeric(rval).
-5. If Type(lnum) is different from Type(rnum), throw a TypeError exception.
-6. If _lnum_ is a BigInt, then
-   1. If _opText_ is \**, return ? BigInt::exponentiate(*lnum*, *rnum\*).
-   2. If _opText_ is /, return ? BigInt::divide(_lnum_, _rnum_).
-   3. If _opText_ is %, return ? BigInt::remainder(_lnum_, _rnum_).
-   4. If _opText_ is >>>, return ? BigInt::unsignedRightShift(_lnum_, _rnum_).
-7. Let _operation_ be the abstract operation associated with _opText_ and Type(_lnum_) in the following table:
+> 1. If _opText_ is **+**, then
+> 1. Let _lprim_ be ? ToPrimitive(lval).
+> 1. Let _rprim_ be ? ToPrimitive(rval).
+> 1. If _lprim_ is a String or _rprim_ is a String, then
+>    1. Let _lstr_ be ? ToString(lprim).
+>    2. Let _rstr_ be ? ToString(rprim).
+>    3. Return the string-concatenation of _lstr_ and _rstr_.
+> 1. Set _lval_ to lprim.
+> 1. Set _rval_ to rprim.
+> 1. NOTE: At this point, it must be a numeric operation.
+> 1. Let _lnum_ be ? ToNumeric(lval).
+> 1. Let _rnum_ be ? ToNumeric(rval).
+> 1. If Type(lnum) is different from Type(rnum), throw a TypeError exception.
+> 1. If _lnum_ is a BigInt, then
+> 1. If _opText_ is \**, return ? BigInt::exponentiate(*lnum*, *rnum\*).
+> 1. If _opText_ is /, return ? BigInt::divide(_lnum_, _rnum_).
+> 1. If _opText_ is %, return ? BigInt::remainder(_lnum_, _rnum_).
+> 1. If _opText_ is >>>, return ? BigInt::unsignedRightShift(_lnum_, _rnum_).
+> 1. Let _operation_ be the abstract operation associated with _opText_ and Type(_lnum_) in the following table:
 
-| _opText_ | Type(_lnum_) | operation                  |
-| -------- | ------------ | -------------------------- |
-| \*\*     | Number       | Number::exponentiate       |
-| \*       | Number       | Number::multiply           |
-| \*       | BigInt       | BigInt::multiply           |
-| /        | Number       | Number::divide             |
-| %        | Number       | Number::remainder          |
-| +        | Number       | Number::add                |
-| +        | BigInt       | BigInt::add                |
-| -        | Number       | Number::subtract           |
-| -        | BigInt       | BigInt::subtract           |
-| <<       | Number       | Number::leftShift          |
-| <<       | BigInt       | BigInt::leftShift          |
-| >>       | Number       | Number::signedRightShift   |
-| >>       | BigInt       | BigInt::signedRightShift   |
-| >>>      | Number       | Number::unsignedRightShift |
-| &        | Number       | Number::bitwiseAND         |
-| &        | BigInt       | BigInt::bitwiseAND         |
-| ^        | Number       | Number::bitwiseXOR         |
-| ^        | BigInt       | BigInt::bitwiseXOR         |
-| \|       | Number       | Number::bitwiseOR          |
-| \|       | BigInt       | BigInt::bitwiseOR          |
+> | _opText_ | Type(_lnum_) | operation                  |
+> | -------- | ------------ | -------------------------- |
+> | \*\*     | Number       | Number::exponentiate       |
+> | \*       | Number       | Number::multiply           |
+> | \*       | BigInt       | BigInt::multiply           |
+> | /        | Number       | Number::divide             |
+> | %        | Number       | Number::remainder          |
+> | +        | Number       | Number::add                |
+> | +        | BigInt       | BigInt::add                |
+> | -        | Number       | Number::subtract           |
+> | -        | BigInt       | BigInt::subtract           |
+> | <<       | Number       | Number::leftShift          |
+> | <<       | BigInt       | BigInt::leftShift          |
+> | >>       | Number       | Number::signedRightShift   |
+> | >>       | BigInt       | BigInt::signedRightShift   |
+> | >>>      | Number       | Number::unsignedRightShift |
+> | &        | Number       | Number::bitwiseAND         |
+> | &        | BigInt       | BigInt::bitwiseAND         |
+> | ^        | Number       | Number::bitwiseXOR         |
+> | ^        | BigInt       | BigInt::bitwiseXOR         |
+> | \|       | Number       | Number::bitwiseOR          |
+> | \|       | BigInt       | BigInt::bitwiseOR          |
 
-8. Return operation(**lnum**, **rnum**).
+> 8. Return operation(**lnum**, **rnum**).
 
 > No hint is provided in the calls to ToPrimitive in steps 1.a and 1.b. All standard objects except Dates handle the absence of a hint as if number were given; Dates handle the absence of a hint as if string were given. Exotic objects may handle the absence of a hint in some other manner.
 
@@ -102,20 +102,20 @@ Also the note is important - "no hint is provided to the ToPrimitive() call", le
 
 This defines how we get primitive values from any data types, according to the [ECMAScript spec](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-toprimitive):
 
-1. If _input_ is an Object, then
-   1. Let _exoticToPrim_ be ? GetMethod(input, @@toPrimitive).
-   2. If _exoticToPrim_ is not undefined, then
-      1. If _preferredType_ is not present, let hint be "default".
-      2. Else if _preferredType_ is string, let hint be "string".
-      3. Else,
-         1. Assert: _preferredType_ is number.
-         2. Let hint be "number".
-      4. Let _result_ be ? Call(_exoticToPrim_, _input_, « _hint_ »).
-      5. If _result_ is not an Object, return _result_.
-      6. Throw a TypeError exception.
-   3. If _preferredType_ is not present, let _preferredType_ be number.
-   4. Return ? OrdinaryToPrimitive(_input_, _preferredType_).
-2. Return _input_.
+> 1. If _input_ is an Object, then
+> 1. Let _exoticToPrim_ be ? GetMethod(input, @@toPrimitive).
+> 1. If _exoticToPrim_ is not undefined, then
+>    1. If _preferredType_ is not present, let hint be "default".
+>    2. Else if _preferredType_ is string, let hint be "string".
+>    3. Else,
+>       1. Assert: _preferredType_ is number.
+>       2. Let hint be "number".
+>    4. Let _result_ be ? Call(_exoticToPrim_, _input_, « _hint_ »).
+>    5. If _result_ is not an Object, return _result_.
+>    6. Throw a TypeError exception.
+> 1. If _preferredType_ is not present, let _preferredType_ be number.
+> 1. Return ? OrdinaryToPrimitive(_input_, _preferredType_).
+> 1. Return _input_.
 
 Here it says, if [Symbol.toPrimitive](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive) is defined in the object, then the method will be used in ToPrimitive(). This is pretty obvious, below is an example.
 
@@ -137,16 +137,16 @@ If [Symbol.toPrimitive](https://developer.mozilla.org/en-US/docs/Web/JavaScript/
 
 This is the default process before Symbol.toPrimitive is a thing. According to the [ECMAScript spec](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-ordinarytoprimitive):
 
-1. If hint is string, then
-   1. Let _methodNames_ be « "toString", "valueOf" ».
-2. Else,
-   1. Let _methodNames_ be « "valueOf", "toString" ».
-3. For each element _name_ of _methodNames_, do
-   1. Let _method_ be ? Get(O, name).
-   2. If IsCallable(_method_) is true, then
-   3. Let _result_ be ? Call(_method_, _O_).
-   4. If _result_ is not an Object, return _result_.
-4. Throw a **TypeError** exception.
+> 1. If hint is string, then
+> 1. Let _methodNames_ be « "toString", "valueOf" ».
+> 1. Else,
+> 1. Let _methodNames_ be « "valueOf", "toString" ».
+> 1. For each element _name_ of _methodNames_, do
+> 1. Let _method_ be ? Get(O, name).
+> 1. If IsCallable(_method_) is true, then
+> 1. Let _result_ be ? Call(_method_, _O_).
+> 1. If _result_ is not an Object, return _result_.
+> 1. Throw a **TypeError** exception.
 
 What it says is basically
 
