@@ -20,9 +20,8 @@ We can gather the following requirments from above.
 1. `curry()` should return a function
 2. The returned function should 
     - if number of arguments matches original function, return the final result
-function
     - otherwise return a function which expects the missing arguments, 
-also this function needs to be currieds as well.
+also this function needs to be curried as well.
 
 We need to know **the expected number of arguments of a function**, 
 [Function.prototype.length](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length) exactly
