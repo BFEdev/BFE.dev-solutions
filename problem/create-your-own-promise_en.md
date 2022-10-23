@@ -254,7 +254,7 @@ then(onFulfilled, onRejected) {
 
    Although the `then` method will be triggered instantly, the callback functions (handlers) will be invoked asynchronously. `Promise` uses the _microtask_ queue to run the callbacks. When a promise is settled, its `then` handlers are add into the microtask queue. The microtasks get run whenever JavaScript finishes executing, in other words, whenever the JavaScript stack becomes empty:
 
-https://www.youtube.com/watch?v=cCOL7MC4Pl0&t=1475s
+   https://www.youtube.com/watch?v=cCOL7MC4Pl0&t=1475s
 
    ```js
    console.log('Start!');
