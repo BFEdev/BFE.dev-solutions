@@ -16,11 +16,12 @@ Latest version will be automatically reflected on [BFE.dev](https://bfe.dev) web
 2. If there is no markdown file in the repo, just click the "solution" button from [BFE.dev](https://bfe.dev), it will be automatically created.
 3. We want the solutions to be **high quality and also beginner friendly**, please keep this in mind.
 4. The smaller PR you create, the sooner it could get merged. 
+5. Put your name in the first line if you are the first contributor.
 
 
 Solution examples:
 
-[solution to problem 1. implement curry()](https://github.com/BFEdev/BFE.dev-solutions/blob/main/problem/implement-curry_en.md)
+[solution to problem 67. create your own Promise](https://github.com/BFEdev/BFE.dev-solutions/blob/main/problem/create-your-own-promise_en.md)
 
 [solution to quiz 1. Promise order](https://github.com/BFEdev/BFE.dev-solutions/blob/main/quiz/1-promise-order_en.md)
 
