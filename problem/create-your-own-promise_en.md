@@ -1,3 +1,5 @@
+> This awesome solution is created by [@pinglu85](https://github.com/pinglu85) !
+
 ## Problem Analysis
 
 ### The Constructor of `MyPromise`
