@@ -146,13 +146,13 @@ The step 5 clearly tells us that `resolve()` does nothing if promise is already 
 
 According to [ECMASCript spec](https://tc39.es/ecma262/multipage/control-abstraction-objects.html#sec-promise-reject-functions), `reject()` internals are defined as:
 
-1. Let _F_ be the active function object.
-2. Assert: _F_ has a [[Promise]] internal slot whose value is an Object.
-3. Let _promise_ be F.[[Promise]].
-4. Let _alreadyResolved_ be F.[[AlreadyResolved]].
-5. If _alreadyResolved_.[[Value]] is true, return undefined.
-6. Set _alreadyResolved_.[[Value]] to true.
-7. Perform RejectPromise(promise, reason).
-8. Return undefined.
+> 1. Let _F_ be the active function object.
+> 2. Assert: _F_ has a [[Promise]] internal slot whose value is an Object.
+> 3. Let _promise_ be F.[[Promise]].
+> 4. Let _alreadyResolved_ be F.[[AlreadyResolved]].
+> 5. If _alreadyResolved_.[[Value]] is true, return undefined.
+> 6. Set _alreadyResolved_.[[Value]] to true.
+> 7. Perform RejectPromise(promise, reason).
+> 8. Return undefined.
 
 The step 5 clearly tells us that `reject()` does nothing if promise is already resolved.
