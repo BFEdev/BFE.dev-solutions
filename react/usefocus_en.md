@@ -1,4 +1,4 @@
-There are 3 important points:
+There are 3 important points should be aware of:
 1. Reset the state when the target element changes.
 2. Only `addEventListener` & `removeEventListener` **only** when the target element changes, **NOT** on every render.
 3. Keep the handler function as the **same reference** for `addEventListener` & `removeEventListener`, otherwise the event will **NOT** be removed. There're two mostly used options to do this:
