@@ -2,8 +2,8 @@ There are 3 important points should be aware of:
 1. Reset the state when the target element changes.
 2. Do `addEventListener` & `removeEventListener` **only** when the target element changes, **NOT** on every render.
 3. Keep the handler function as the **same reference** for `addEventListener` & `removeEventListener`, otherwise the handler will **NOT** be removed. There're two mostly used options:
-  - Use `useCallback` to cache the **callback**.
-  - Define the **callback** inside the `useEffect` function.(recommended)
+  - Use `useCallback` to cache the **handler**.
+  - Define the **handler** inside the `useEffect` function scope.(recommended)
 
 ```ts
 import React, { Ref, useEffect, useRef, useState } from 'react'
