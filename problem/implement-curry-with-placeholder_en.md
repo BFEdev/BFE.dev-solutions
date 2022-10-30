@@ -280,7 +280,7 @@ curry.placeholder = Symbol()
 
 function mergeArgs(argsTo, argsFrom, placeholder) {
   const mappedArgsTo = argsTo.map((item) =>
-    item === placeholder ? argsFrom.shift() : item
+    item === placeholder && argsFrom.length ? argsFrom.shift() : item
   )
   return [...mappedArgsTo, ...argsFrom]
 }
@@ -310,7 +310,7 @@ function curry(fn) {
     // otherwise return a function which merges the args
     return function (...nextArgs) {
       const mappedArgsTo = args.map((item) =>
-        item === curry.placeholder ? nextArgs.shift() : item
+        item === curry.placeholder && nextArgs.length ? nextArgs.shift() : item
       )
       return curried.call(this, ...mappedArgsTo, ...nextArgs)
     }
