@@ -10,6 +10,9 @@ For each question, there are markdown files with name of `/{problem-type}/{perma
 
 Latest version will be automatically reflected on [BFE.dev](https://bfe.dev) website with some delay.
 
+![Screen Shot 2022-10-20 at 00 56 07](https://user-images.githubusercontent.com/72685491/199011088-f324aab4-9c80-4338-a717-cd6527f5771e.png)
+
+
 # How to contribute
 
 1. Simple, just PR to update the solutions you want. We'll review them as soon as we can. 
