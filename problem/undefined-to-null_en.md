@@ -7,7 +7,7 @@ Our goal is to implement a function that:
 
 ### Observations
 We can make several observations here:
-- We have no upper limit to how deeply nested our `undefined` can be, so our function must be recursive.
+- We don't know from the prompt how deeply nested our `undefined` can be, so our function must be recursive (although this might be not memory safe at all if there are thousands of levels of nesting). 
 - We need to return a copy with all `undefined` replaced with `null`, so we cannot mutate our original input.
 
 ### Implementation
