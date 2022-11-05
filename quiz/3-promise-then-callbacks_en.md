@@ -110,4 +110,4 @@ Let's focus on step 4 & 5, it says
 1. step 4: if callback (handler) is empty, then the existing fulfillment value (argument) is used
 2. step 5: otherwise, the return value of callback (handler) is used.
 
-After this the value is used to resolve or reject the promise object.
+After this the value is used to resolve() or reject() the promise object.
