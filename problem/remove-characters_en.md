@@ -1,3 +1,5 @@
+> This awesome solution is created by [@Ahmed](https://github.com/AhmedIbrahim336)!
+
 ## Problem analysis
 This problem is a classic example of a `stack` problem as you need to remember the last `char` you have while you are going through the string. 
 
