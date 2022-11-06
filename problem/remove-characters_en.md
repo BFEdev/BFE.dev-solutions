@@ -31,3 +31,7 @@ This problem is a classic example of a `stack` problem as you need to remember t
 6. Becuase the next char is `c` and the last element added to the stack was `a`, `a` will be removed and `c` will not be added. Stack will be `[c, a, a]`
 7. The same will apply for the next `c`. Stack will be `[c, a]`
 8. Finaly, the last `a` in the input will be added to the stack. Stack will be `[c, a, a]` (**our output**)
+
+## Space and time complexity
+We are going throgh the string once so we have a time complexity of `O(n)` where the `n` is the length of the input. 
+Becuase we are using stack to make a copy of the output string so at the worse case we might store the whole input again! So we have a space complexity of `O(n)`. 
