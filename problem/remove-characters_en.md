@@ -1,39 +1,44 @@
 > This awesome solution is created by [@Ahmed](https://github.com/AhmedIbrahim336)!
 
 ## Problem analysis
-This problem is a classic example of a `stack` problem as you need to remember the last `char` you have while you are going through the string. 
+
+This problem is a classic example of a `stack` problem as you need to remember the last `char` you have while you are going through the string.
 
 ## Solution
 
 ```ts
-  let stack: string[] = []
-  for (let i = 0; i < input.length; i++) {
-    let char = input[i]
-    if (stack.length != 0 && char === 'c' && stack[stack.length - 1] === 'a') {
-      stack.pop()
-    } else if (char !== 'b') {
-      stack.push(char)
-    }
+const stack: string[] = [];
+for (let i = 0; i < input.length; i++) {
+  const char = input[i];
+  if (stack.length != 0 && char === "c" && stack[stack.length - 1] === "a") {
+    stack.pop();
+  } else if (char !== "b") {
+    stack.push(char);
   }
+}
 
-  return stack.join('')
+return stack.join("");
 ```
 
-## Go through example 
+## Go through example
 
 **Input:** `removeChars('cabbaabcca')`
 
 **Output:** `caa`
 
-1. At first the stack will be empty. 
-2. The two letters `ca` are not `b` so they will be added to stack `[c, a]`. 
-3. The next `bb` will not be added to the stack. Stack still `[c, a]`
-4. The next `aa` will be added to the stack as they are not `b`. Stack will be `[c, a, a, a]`
-5. The next `b` wil not be added to the stack. Stack still `[c, a, a, a]`
-6. Becuase the next char is `c` and the last element added to the stack was `a`, `a` will be removed and `c` will not be added. Stack will be `[c, a, a]`
-7. The same will apply for the next `c`. Stack will be `[c, a]`
-8. Finaly, the last `a` in the input will be added to the stack. Stack will be `[c, a, a]` (**our output**)
+At the stack the stack is empty.
+
+| Char | Explanation                                                     | Stack          |
+| ---- | --------------------------------------------------------------- | -------------- |
+| `c`  | Any letter other than `b` should be added to the stack          | `[c]`          |
+| `a`  | The same as `c`                                                 | `[c, a]`       |
+| `bb` | Any `b` will not be added. stack still the same                 | `[c, a]`       |
+| `aa` | `a, a` will be added to the stack                               | `[c, a, a, a]` |
+| `b`  | `b` will not be added                                           | `[c, a, a, a]` |
+| `cc` | `cc` will be removed with the last `aa` at the top of the stack | `[c, a]`       |
+| `a`  | Last `a` will be added to the stack                             | `[c, a, a]`    |
 
 ## Space and time complexity
-We are going throgh the string once so we have a time complexity of `O(n)` where the `n` is the length of the input. 
-Becuase we are using stack to make a copy of the output string so at the worse case we might store the whole input again! So we have a space complexity of `O(n)`. 
+
+We are going throgh the string once so we have a time complexity of `O(n)` where the `n` is the length of the input.
+Becuase we are using stack to make a copy of the output string so at the worse case we might store the whole input again! So we have a space complexity of `O(n)`.
