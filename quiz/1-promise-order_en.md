@@ -44,7 +44,7 @@ setTimeout(() => {
 
 When above script is executed, the execution of the whole script is one Macro task. 
 
-| console logs |Macro|Micro| console logs |
+| console logs |Macro|Micro|
 -------|------|-----
 |  |script run | |
 
@@ -145,12 +145,6 @@ Event loop picks up the Macro task.
 |console logs |Macro|Micro|  host timer |
 -------|------|-----|----
 | 1 2 3 4 7 5 6 9 | | |  10ms|
-
-Now all tasks are empty, and time is up for the 1st timer
-
-| console logs |Macro|Micro| host timer |
--------|------|-----|----
-|  1 2 3 4 7 5 6| () => console.log(9) | | 10ms|
 
 The last timer gets executed. 
 
