@@ -44,15 +44,15 @@ setTimeout(() => {
 
 When above script is executed, the execution of the whole script is one Macro task. 
 
-|Macro|Micro| console logs |
+| console logs |Macro|Micro| console logs |
 -------|------|-----
-| script run | | |
+|  |script run | |
 
 We meet the first `console.log()`
 
-|Macro|Micro| console logs |
+| console logs |Macro|Micro|
 -------|------|-----
-| script run | | 1 |
+|  1 |script run | |
 
 Now comes the creation of Promise.
 
@@ -68,15 +68,15 @@ The arrow function passed to `Promise()` is the executor, from the [ECMA262 Spec
 
 `resolve()` changes the internal state of Promise object to `fulfilled`, but doesn't block the next line of code, thus we have following tasks and logs.
 
-|Macro|Micro| console logs |
+|console logs |Macro|Micro| 
 -------|------|-----
-| script run | | 1 2 3 |
+| 1 2 3 |script run | | 
 
 Again we meet a `console.log()` call.
 
-|Macro|Micro| console logs |
+| console logs |Macro|Micro|
 -------|------|-----
-| script run | | 1 2 3 4 |
+| 1 2 3 4 |script run | | 
 
 ```
 promise.then(() => {
@@ -88,21 +88,21 @@ promise.then(() => {
 
 [Promise.then()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) sets up the success and failure callbacks for the Promise object. From the [ECMA262 Spec](https://tc39.es/ecma262/multipage/control-abstraction-objects.html#sec-performpromisethen), we can clearly see that when the Promise object is already fullfilled or rejected, `then()` would [HostEnqueuePromiseJob](https://tc39.es/ecma262/multipage/executable-code-and-execution-contexts.html#sec-hostenqueuepromisejob), which basically means it is add to the Micro Tasks. 
 
-|Macro|Micro| console logs |
+| console logs |Macro|Micro|
 -------|------|-----
-| script run | () => console.log(5) | 1 2 3 4 |
+|  1 2 3 4 |script run | () => console.log(5) |
 
 [Promise.then()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) also returns a new Promise, since there is no return value in the callback `() => console.log(5)`, the new Promise is resolved with value `undefined`, and next `then()` does repeats above process. 
 
-|Macro|Micro| console logs |
+|console logs |Macro|Micro| 
 -------|------|-----
-| script run | () => console.log(5), () => console.log(6) | 1 2 3 4 |
+|  1 2 3 4 |script run | () => console.log(5), () => console.log(6) |
 
 Another `console.log()` call.
 
-|Macro|Micro| console logs |
+|console logs |Macro|Micro| 
 -------|------|-----
-| script run | () => console.log(5), () => console.log(6) | 1 2 3 4 7 |
+| 1 2 3 4 7 |script run | () => console.log(5), () => console.log(6) | 
 
 Here comes `setTimeout()`.
 
@@ -120,48 +120,48 @@ setTimeout(() => {
 
 Notice that the delay you set is the minimum delay since the timer is to add Macro tasks, the execution is still handled by Event loop. 
 
-|Macro|Micro| console logs | host timer |
+|console logs |Macro|Micro|  host timer |
 -------|------|-----|----
-| script run | () => console.log(5), () => console.log(6) | 1 2 3 4 7 | 0ms, 10ms|
+|1 2 3 4 7 | script run | () => console.log(5), () => console.log(6) |  0ms, 10ms|
 
 Now all code in the first Macro task are executed, Event loop tries to execute all the Micro tasks
 
-|Macro|Micro| console logs | host timer |
+| console logs |Macro|Micro| host timer |
 -------|------|-----|----
-|  | () => console.log(6) | 1 2 3 4 7 5| 0ms, 10ms|
+| 1 2 3 4 7 5| | () => console.log(6) |  0ms, 10ms|
 
-|Macro|Micro| console logs | host timer |
+|console logs |Macro|Micro|  host timer |
 -------|------|-----|----
-|  | | 1 2 3 4 7 5 6| 0ms, 10ms|
+| 1 2 3 4 7 5 6|  | | 0ms, 10ms|
 
 Now all tasks are empty, and time is up for the 1st timer
 
-|Macro|Micro| console logs | host timer |
+| console logs | Macro|Micro|host timer |
 -------|------|-----|----
-| () => console.log(9) | | 1 2 3 4 7 5 6| 10ms|
+| 1 2 3 4 7 5 6|() => console.log(9) | |  10ms|
 
 Event loop picks up the Macro task. 
 
-|Macro|Micro| console logs | host timer |
+|console logs |Macro|Micro|  host timer |
 -------|------|-----|----
-|  | | 1 2 3 4 7 5 6 9 | 10ms|
+| 1 2 3 4 7 5 6 9 | | |  10ms|
 
 Now all tasks are empty, and time is up for the 1st timer
 
-|Macro|Micro| console logs | host timer |
+| console logs |Macro|Micro| host timer |
 -------|------|-----|----
-| () => console.log(9) | | 1 2 3 4 7 5 6| 10ms|
+|  1 2 3 4 7 5 6| () => console.log(9) | | 10ms|
 
 The last timer gets executed. 
 
-|Macro|Micro| console logs | host timer |
+|console logs |Macro|Micro|  host timer |
 -------|------|-----|----
-| () => console.log(8) | | 1 2 3 4 7 5 6 9 | |
+| 1 2 3 4 7 5 6 9 |() => console.log(8) | |  |
 
 Here is our final result.
 
-|Macro|Micro| console logs | host timer |
+|console logs |Macro|Micro|  host timer |
 -------|------|-----|----
-| | | 1 2 3 4 7 5 6 9 8| |
+|1 2 3 4 7 5 6 9 8| | |  |
 
 
