@@ -51,6 +51,7 @@ How this works could be found in ECMAScript spec.
 
 ## Evaluation - to get the value of identifier
 
+When meets an identifier `a`, we need to determine where to find the right value of it.
 From [ECMAScript spec](https://tc39.es/ecma262/#sec-identifiers-runtime-semantics-evaluation),
 the value of an identifier is determined by `ResolveBinding(StringValue of Identifier).`
 
