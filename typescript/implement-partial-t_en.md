@@ -1,4 +1,22 @@
+Looking at the code example, we can see that `Partial` means **turn each property to be nullable**.
 
-There is no solution yet.
+To get the properties we can use `keyof`
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/typescript/implement-partial-t_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+```ts
+type A = {
+  a: number
+  b: string
+}
+
+type C = keyof A // 'a' | 'b'
+```
+
+Then we can just use [Mapped Types](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html) to map each type to nullable by `| undefined`.
+
+```ts
+type MyPartial<T> = {
+  [P in keyof T]?: T[P] | undefined
+}
+```
+
+Also notice `?` is needed because the property key itself could be omitted as well.
