@@ -1,4 +1,4 @@
-Looking at the code example, we can see that `Partial` means **turn each property to be nullable**.
+Looking at the code example, we can see that `Partial` means **turn each property to be optional**.
 
 To get the properties we can use `keyof`
 
@@ -11,12 +11,10 @@ type A = {
 type C = keyof A // 'a' | 'b'
 ```
 
-Then we can just use [Mapped Types](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html) to map each type to nullable by `| undefined`.
+Then we can just use [Mapped Types](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html) to map each type to optional by `?`.
 
 ```ts
 type MyPartial<T> = {
-  [P in keyof T]?: T[P] | undefined
+  [P in keyof T]?: T[P]
 }
 ```
-
-Also notice `?` is needed because the property key itself could be omitted as well.
