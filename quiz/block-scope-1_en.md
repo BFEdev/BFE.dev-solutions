@@ -47,7 +47,7 @@ func()() // 2
 The answer is obvious, `func()` returns a closure in which `a` is bound to 2.
 Same identifier `a` somehow refers to different values based on where `a` is, have you wondered how it is done?
 
-The answers are in ECMAScript specs.
+How this works could be found in ECMAScript spec.
 
 ## Evaluation - to get the value of identifier
 
