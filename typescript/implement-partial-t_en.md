@@ -11,7 +11,7 @@ type A = {
 type C = keyof A // 'a' | 'b'
 ```
 
-Then we can just use [Mapped Types](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html) to map each type to optional by `?`.
+Then we can just use [Mapped Type](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html) to map each type to optional by `?`.
 
 ```ts
 type MyPartial<T> = {
