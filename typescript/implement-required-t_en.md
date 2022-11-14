@@ -12,5 +12,7 @@ type ReadonlyPartial<T> = { +readonly [P in keyof T]+?: T[P] }; // Add readonly 
 So the answer to this question is simply a [Mapped Type](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html) with `-`.
 
 ```ts
-type MyRequired<T> = { [P in keyof T]-?: T[P] };
+type MyRequired<T> = { 
+  [P in keyof T]-?: T[P] 
+}
 ```
