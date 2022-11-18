@@ -1,4 +1,10 @@
+Looking at the code example, we can see that the requirment is to add _readonly_ on each property name.
 
-There is no solution yet.
+To achieve this, we can just use [Mapped Type](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html), which allows us to basically map the property to the readonly verison.
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/typescript/implement-readonly-t_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+```ts
+
+type MyReadonly<T> = { 
+  readonly [P in keyof T]: T[P] 
+}
+```
