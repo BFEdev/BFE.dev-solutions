@@ -1,4 +1,24 @@
+## Solution by [@Dharanish-V](https://github.com/dharanish-v)
 
-There is no solution yet.
+* Making the outer div as flexbox 
+* Add justify-content property as center
+* Add align-items property as center
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/css/center-an-element-vertically_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+``` 
+.outer {
+  width: 100%;
+  height: 100%;
+  background-color: #efefef;
+  /* your code here */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner {
+  width: 100px;
+  height: 100px;
+  background-color: #f44336;
+}
+```
+***
