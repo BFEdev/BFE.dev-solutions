@@ -1,4 +1,14 @@
+## Solution by [@Dharanish-V](https://github.com/dharanish-v)
 
-There is no solution yet.
+* Add **white-space: nowrap;** to stop the text from wrapping to next line
+* Add **overflow: hidden;** to hide the text overflowing outside its container element
+* Add **text-overflow: ellipsis;** to truncate the text overflow and display ellipsis(**...**)
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/css/truncate-text-with-ellipsis-in-one-line_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+``` 
+.one-line {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+```
+***
