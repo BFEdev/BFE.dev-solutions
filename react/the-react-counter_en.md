@@ -62,6 +62,31 @@ export function App() {
 }
 ```
 
+## data attributs could be used to create single event handler
+
+In above example, we need to create hander for decrease and increase, this is not scalable. 
+We can create just one handler and config it by data attributes
+
+```js
+import React, {useState, useCallback} from 'react'
+
+export function App() {
+
+  const [count, setCount] = useState(0)
+  const update = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    const change = parseInt(e.currentTarget.dataset.change ?? '0')
+    setCount(count => count + change)
+  }, [])
+  return (
+    <div>
+      <button data-testid="decrement-button" data-change="-1" onClick={update}>-</button>
+      <button data-testid="increment-button" data-change="1" onClick={update}>+</button>
+      <p>clicked: {count}</p>
+    </div>
+  )
+}
+```
+
 ## useReducer() could be used for even more complex interactions
 
 This is the code demo from [React homepage](https://reactjs.org/docs/hooks-reference.html#usereducer), which demonstrrate `useReducer()` as an alternative to `useState()`, which might be more favorable if you are used to [Redux](https://redux.js.org/) toolchain.
