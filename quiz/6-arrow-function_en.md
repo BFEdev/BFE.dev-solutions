@@ -71,8 +71,8 @@ const obj = {
 }
 console.log(obj.f()())
 // undefined
-// think about obj.f()() as someExpression(). 
-// obj.f() returns function b(), but there is no dot in someExpression, 
+// think about obj.f()() as someExpression().
+// obj.f() returns function b(), but there is no dot in someExpression,
 // so `this` is global and undefined is logged
 
 const obj = {
@@ -153,7 +153,7 @@ And here is the internal logic from [ECMAScript Spec](https://tc39.es/ecma262/#s
 > 8. Let _tailCall_ be IsInTailPosition(thisCall).
 > 9. Return ? _EvaluateCall_(func, ref, arguments, tailCall).
 
-We can see that what id does is
+We can see that what it does is
 
 1. extract each parts, the MemberExpression and Arguments
 2. Evaluate and get value of MemberExpression
