@@ -98,7 +98,7 @@ const obj = {
 }
 console.log(obj.h()())
 // undefined
-// obj.h() returns the arrow function, not the call expression is someExpression(), in which there is no dot
+// obj.h() returns the arrow function, now the call expression is someExpression(), in which there is no dot
 // also c() is arrow function, `this` points to global, so undefined is logged
 
 const obj = {
