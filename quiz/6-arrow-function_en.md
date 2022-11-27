@@ -1,6 +1,6 @@
 ## TL;DR
 
-Arrow function doesn't have its own `this`, so `this` inside of arrow functions is pointed to the `this` at outer scope, this is done at function creation time.
+Arrow function doesn't have its own `this`, so `this` inside of arrow functions is pointed to the `this` at outer scope.
 
 ```js
 const obj = {
@@ -42,7 +42,8 @@ const obj = {
 }
 console.log(obj.d())
 // `'bfe'`
-// arrow function doesn't have its own `this`, and `this` here points to its outer scope, which is the function. And this is determined at function creation time.
+// arrow function doesn't have its own `this`, and `this` here points to its outer scope,
+// which is the function.
 // when obj.d() is called, `this` points to obj, so arrow function inside has `this` points to `obj`.
 
 const obj = {
