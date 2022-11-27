@@ -156,7 +156,7 @@ And here is the internal logic from [ECMAScript Spec](https://tc39.es/ecma262/#s
 We can see that what it does is
 
 1. extract each parts, the MemberExpression and Arguments
-2. Evaluate and get value of MemberExpression
+2. evaluate and get value of MemberExpression
 3. get arguments from Arguments
 4. forward it to EvaluateCall
 
@@ -210,7 +210,7 @@ According to the [ECMAScript spec](https://tc39.es/ecma262/#sec-evaluatecall).
 > 1. If _tailPosition_ is true, perform PrepareForTailCall().
 > 1. Return ? Call(_func_, _thisValue_, argList).
 
-We can clearly see in the first if branch, that the `[[Base]]` of Reference Record is used as `thisValue` thourhg [GetThisValue](https://tc39.es/ecma262/#sec-getthisvalue), which is `obj` in our case.
+We can clearly see in the first if branch, that the `[[Base]]` of Reference Record is used as `thisValue` through [GetThisValue](https://tc39.es/ecma262/#sec-getthisvalue), which is `obj` in our case.
 
 ## How `this` is set for function call?
 
