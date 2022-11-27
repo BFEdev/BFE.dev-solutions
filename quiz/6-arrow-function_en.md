@@ -42,9 +42,10 @@ const obj = {
 }
 console.log(obj.d())
 // `'bfe'`
-// arrow function doesn't have its own `this`, and `this` here points to its outer scope,
-// which is the function.
-// when obj.d() is called, `this` points to obj, so arrow function inside has `this` points to `obj`.
+// arrow function doesn't have its own `this`
+//  `this` here points to its outer scope, which is the function.
+// when obj.d() is called, `this` points to obj,
+// so arrow function inside has `this` points to `obj`.
 
 const obj = {
   dev: 'bfe',
@@ -101,8 +102,9 @@ const obj = {
 }
 console.log(obj.h()())
 // undefined
-// obj.h() returns the arrow function, now the call expression is someExpression(), in which there is no dot
-// also c() is arrow function, `this` points to global, so undefined is logged
+// obj.h() returns the arrow function, now the call expression is someExpression(),
+// in which there is no dot , also c() is arrow function,
+// `this` points to global, so undefined is logged
 
 const obj = {
   dev: 'bfe',
@@ -281,9 +283,10 @@ const obj = {
 console.log(obj.a())
 
 // `obj.a` returns a reference record of {[[base]]: obj, [[ReferencedName]]: 'a'}
-// () calls the function, it evaluates above reference record, gets `obj` as `this`, and set it as `[[ThisValue]]` of local scope
-// `this` in function body tries recursively search for `[[ThisValue]]` along the lexical environment chain and instantly gets `obj`.
-// `'bfe'` is logged.
+// () calls the function, it evaluates above reference record, gets `obj` as `this`,
+// and set it as `[[ThisValue]]` of local scope
+// `this` in function body tries recursively search for `[[ThisValue]]` along the lexical environment chain
+// and instantly gets `obj`, `'bfe'` is logged.
 ```
 
 ## Method definition
@@ -340,13 +343,13 @@ Guess you have noticed it, for arrow functions, this field should be `lexical` m
 
 From [ECMAScript spec](https://tc39.es/ecma262/#sec-runtime-semantics-instantiatearrowfunctionexpression), we can clearly see that `lexical-this` is passed to OrdinaryFunctionCreate().
 
-1. If name is not present, set name to "".
-2. Let _env_ be the LexicalEnvironment of the running execution context.
-3. Let _privateEnv_ be the running execution context's PrivateEnvironment.
-4. Let _sourceText_ be the source text matched by ArrowFunction.
-5. Let _closure_ be OrdinaryFunctionCreate(%Function.prototype%, _sourceText_, ArrowParameters, ConciseBody, **lexical-this**, env, privateEnv).
-6. Perform SetFunctionName(_closure_, name).
-7. Return _closure_.
+> 1. If name is not present, set name to "".
+> 2. Let _env_ be the LexicalEnvironment of the running execution context.
+> 3. Let _privateEnv_ be the running execution context's PrivateEnvironment.
+> 4. Let _sourceText_ be the source text matched by ArrowFunction.
+> 5. Let _closure_ be OrdinaryFunctionCreate(%Function.prototype%, _sourceText_, ArrowParameters, ConciseBody, **lexical-this**, env, privateEnv).
+> 6. Perform SetFunctionName(_closure_, name).
+> 7. Return _closure_.
 
 And inside of [OrdinaryFunctionCreate](https://tc39.es/ecma262/#sec-ordinaryfunctioncreate), `[[ThisMode]]` is set to lexical at step 9.
 
