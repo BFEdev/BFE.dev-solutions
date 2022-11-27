@@ -71,7 +71,9 @@ const obj = {
 }
 console.log(obj.f()())
 // undefined
-// think about obj.f()() as someExpression(). obj.f() returns function b(), but there is no dot in someExpression, so `this` is global and undefined is logged
+// think about obj.f()() as someExpression(). 
+// obj.f() returns function b(), but there is no dot in someExpression, 
+// so `this` is global and undefined is logged
 
 const obj = {
   dev: 'bfe',
