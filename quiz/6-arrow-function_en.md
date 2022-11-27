@@ -113,7 +113,8 @@ const obj = {
 console.log(obj.i()())
 // 'bfe'
 // obj.i() returns the anonymous arrow function
-// arrow function itself doesn't have `this`, but its outer scope, the anonymous function has `this` pointed to obj.
+// arrow function itself doesn't have `this`,
+// but its outer scope, the anonymous function has `this` pointed to obj.
 // so the result is 'bfe'
 ```
 
