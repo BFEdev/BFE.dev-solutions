@@ -22,6 +22,13 @@ Latest version will be automatically reflected on [BFE.dev](https://bfe.dev) web
 5. Put your name in the first line if you are the first contributor.
 
 
+# How we merge
+
+1. we will merge the PR based on the correctness and quality.
+2. we might comment on your PR to request for more changes if we think the PR is promising.
+3. we might close the PR without any detailed reason.
+
+
 Solution examples:
 
 [solution to problem 67. create your own Promise](https://github.com/BFEdev/BFE.dev-solutions/blob/main/problem/create-your-own-promise_en.md)
