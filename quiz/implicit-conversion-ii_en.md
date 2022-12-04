@@ -128,7 +128,9 @@ const obj =
       }
       return 'obj'
     }
-  } + obj // 100
+  } 
+
++ obj // 100
 ```
 
 If [Symbol.toPrimitive](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive) is not defined, the default _OrdinaryToPrimitive()_ is used.
