@@ -1,4 +1,11 @@
+Solution by [Arun Kumar](https://github.com/arun05hp)
 
-There is no solution yet.
+## Using Overflow, White-Space and Text-Overflow
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/css/truncate-text-with-ellipsis-in-one-line_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+```js
+.one-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+```
