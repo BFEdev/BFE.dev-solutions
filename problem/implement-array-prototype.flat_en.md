@@ -15,7 +15,7 @@ If all items are not array, then we don't need to do anything, just a call of `A
 flat([1, [2], 3, 4])
 ```
 
-Now there an item in array - `[2]`, we need to flatten it first, which could be done by calling `flat()` again. This could obviously be done by recursion.
+Now there an item in array - `[2]`, we need to flatten it first, which could be done by calling `flat()` again. This is perfect case for recursion.
 
 ```js
 function flat(arr, depth = 1) {
