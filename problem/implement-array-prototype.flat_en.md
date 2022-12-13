@@ -62,7 +62,7 @@ For space complexity, we have a recursion stack and intermediate result array, w
 
 Recursion is easy to come up with and easy to understand, after it is done we can start thinking about the improve it with memoization .etc, or try to come up with an iterative solution. Iteration approach is generally more performant since there is no recursion stack, but sometimes it is more tricky to get it right.
 
-A simple idea is we can flatten the array with depth=1 for multiple times.
+A simple idea is that we can flatten the array with depth=1 for multiple times.
 
 ```js
 function flat(arr, depth = 1) {
@@ -85,7 +85,7 @@ function flat(arr, depth = 1) {
 }
 ```
 
-This causes error is depth is passed with `Infinity`, since we loop through the array over and over again even if there is no array inside, to overcome this we can use a flat to end it more quickly.
+This causes error if depth is passed with `Infinity`, since we loop through the array over and over again even if there is no array item inside, to overcome this we can use a flag to bail sooner.
 
 ```js
 function flat(arr, depth = 1) {
@@ -110,7 +110,7 @@ function flat(arr, depth = 1) {
 
 ## Iteration approach - improved version
 
-Above code works, but still not performant, we traverse through the items that are not arrays unnecessarily. Think about case like below, to flatten the inner array, `1` `3` and `5` are looped 4 times.
+Above code works, but still not performant, we traverse the items that are not arrays unnecessarily. Think about case like below, to flatten the inner array, `1` `3` and `5` are looped 4 times.
 
 ```
 [1, 2, 3, [[[[4]]]], 5]
@@ -120,7 +120,7 @@ We need a way to narrow down the traversal to inner arrays. In above code, we al
 
 So rather than pushing right away, we can put it back at the head if we need to flatten the item furthur. Since there might be more array items when we put it back, we need to attach the `depth` to the items as well.
 
-Since we are using one single result array, we need to know when to end the traversal.
+We are using one single result array, we need to know when to end the traversal.
 
 ```js
 function flat(arr, depth = 1) {
