@@ -1,6 +1,6 @@
 Solution by [Arun Kumar](https://github.com/arun05hp)
 
-## Using Overflow, White-Space and Text-Overflow
+## Using Adjacent Sibling Selector (+) and :nth-child(n) CSS pseudo-class
 
 ```js
 .row {
