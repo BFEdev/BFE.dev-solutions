@@ -11,3 +11,29 @@ Solution by [Arun Kumar](https://github.com/arun05hp)
   -webkit-box-orient: vertical;
 }
 ```
+
+### text-overflow: ellipsis
+
+```
+It display the ellipsis `...` to represent clipped text. It doesn't force an overflow to occur.
+```
+
+### overflow: hidden
+
+```
+It cutout the part of the text that are overflowed from the container.
+```
+
+### -webkit-line-clamp: 3
+
+```
+This value specifies the number of lines after which the content will be clamped.
+
+It only works in combination with the display property set to -webkit-box or -webkit-inline-box and the -webkit-box-orient property set to vertical.
+```
+
+### -webkit-box-orient: vertical;
+
+```
+The box lays out its contents vertically.
+```
