@@ -1,4 +1,8 @@
+// @jichen257
 
-暂时还没有解答。
-
-有兴趣[贡献你的解答](https://github.com/BFEdev/BFE.dev-solutions/blob/main/typescript/implement-omit-t-k_zh.md)吗? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+注意`K extends keyof any`，K 约束为任意object的键类型
+```ts
+type MyOmit<T, K extends keyof any> = {
+  [P in keyof T as P extends K ? never : P]: T[P]
+}
+```

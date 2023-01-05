@@ -1,4 +1,8 @@
+// @jichen257
 
-まだ解答例がないです。
-
-[コントリビュートしませんか](https://github.com/BFEdev/BFE.dev-solutions/blob/main/typescript/implement-omit-t-k_ja.md)?  [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+`K extends keyof any` に注意, K は、任意のオブジェクトのキー タイプに制約されます。
+```ts
+type MyOmit<T, K extends keyof any> = {
+  [P in keyof T as P extends K ? never : P]: T[P]
+}
+```

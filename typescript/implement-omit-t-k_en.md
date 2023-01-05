@@ -1,4 +1,8 @@
+// @jichen257
 
-There is no solution yet.
-
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/typescript/implement-omit-t-k_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+Pay attention to `K extends keyof any`, K constraint is the key type of any Object
+```ts
+type MyOmit<T, K extends keyof any> = {
+  [P in keyof T as P extends K ? never : P]: T[P]
+}
+```
