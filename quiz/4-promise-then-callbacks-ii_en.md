@@ -26,7 +26,7 @@ Promise.resolve(1)
     // Promise of this then() is fulfilled with value: undefined
   })
   // since a Promise is returned and it is fulfilled with value: undefined
-  // Promise of this then() is fulfilled with value: undefine
+  // Promise of this then() is fulfilled with value: undefined
 
   .then((val) => {
     console.log(val) // undefined
