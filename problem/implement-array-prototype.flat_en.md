@@ -118,7 +118,7 @@ Above code works, but still not performant, we traverse the items that are not a
 
 We need a way to narrow down the traversal to inner arrays. In above code, we always traverse the whole array by shifting and pushing, we can avoid unnecessary traversal by **only push when the item is done flattening**.
 
-So rather than pushing right away, we can put it back at the head if we need to flatten the item furthur. Since there might be more array items when we put it back, we need to attach the `depth` to the items as well.
+So rather than pushing right away, we can put it back at the head if we need to flatten the item further. Since there might be more array items when we put it back, we need to attach the `depth` to the items as well.
 
 We are using one single result array, we need to know when to end the traversal.
 
@@ -137,7 +137,7 @@ function flat(arr, depth = 1) {
       break
     }
     const [item, itemStep] = head
-    // if item is an array and we can flatten furthur
+    // if item is an array and we can flatten further
     // then put its items back with a less depth
     if (Array.isArray(item) && itemStep > 0) {
       result.unshift(...item.map((arrayItem) => [arrayItem, itemStep - 1]))
