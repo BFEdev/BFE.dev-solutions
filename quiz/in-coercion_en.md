@@ -65,15 +65,16 @@ This defines how we get primitive values from any data types, according to the [
 Here it says, if [Symbol.toPrimitive](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive) is defined in the object, then the method will be used in ToPrimitive(). This is pretty obvious, below is an example.
 
 ```js
-const obj =
-  {
-    [Symbol.toPrimitive](hint) {
-      if (hint === 'number') {
-        return 100
-      }
-      return 'obj'
+const obj = {
+  [Symbol.toPrimitive](hint) {
+    if (hint === 'number') {
+      return 100
     }
-  } + obj // 100
+    return 'obj'
+  }
+} 
+
++obj // 100
 ```
 
 If [Symbol.toPrimitive](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive) is not defined, the default _OrdinaryToPrimitive()_ is used.
