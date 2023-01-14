@@ -1,4 +1,16 @@
+Looking at the description, `MyPick<T, K>` should generate an object type which has property names listed in K, so we should use [Mapped Type](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html).
 
-There is no solution yet.
+```ts
+type MyPick<T, K> = {
+  [P in K]: T[P]
+}
+```
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/typescript/implement-pick-t-k_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+This doesn't work since TypeScript complaints about `T[P]` unless `P` is the property key of `T`, we can add the type constraint on K. 
+
+
+```ts
+type MyPick<T, K extends keyof T> = {
+  [P in K]: T[P]
+}
+```
