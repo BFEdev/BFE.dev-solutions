@@ -1,4 +1,18 @@
+Solution by [Maneesh Cheema](https://github.com/ayechico21)
 
-There is no solution yet.
+## Using Overflow
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/css/truncate-text-with-ellipsis-in-one-line_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+```js
+
+.one-line {
+  /* your code here */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+}
+
+```
+* __white-space:nowrap__ Overflowed text does not wrap on to the next line
+* __overflow:hidden__  Content which overflows is hidden 
+* __text-overflow:ellipsis__ The hidden overflow content is highlighted usign ellipsis character
