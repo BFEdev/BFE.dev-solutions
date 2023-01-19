@@ -5,7 +5,6 @@ Solution by [Maneesh Cheema](https://github.com/ayechico21)
 ```js
 
 .one-line {
-  /* your code here */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
