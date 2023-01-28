@@ -187,7 +187,7 @@ On page navigation, we can even start data & resource loading earlier rather tha
 1. Start loading data & resources when users hover on the post card.
 2. Since there are data on post list that could be reused on the post detail, we can pre-fill the data by passing it along in the url or in `location.state`.
 
-Above 2 is just really an idea, we should rely on data-fetching framework to do it for us. For example, Relay has built-in support for [Rendering Partially Cached Data](https://relay.dev/docs/guided-tour/reusing-cached-data/rendering-partially-cached-data/), and SWR has [fallbackDat Option to pre-fill](https://swr.vercel.app/docs/prefetching#pre-fill-data).
+Above 2 is just really an idea, we should rely on data-fetching framework to do it for us. For example, Relay has built-in support for [Rendering Partially Cached Data](https://relay.dev/docs/guided-tour/reusing-cached-data/rendering-partially-cached-data/), and SWR has [fallbackData option to pre-fill](https://swr.vercel.app/docs/prefetching#pre-fill-data).
 
 ### 5.9. Optimistic UI
 
