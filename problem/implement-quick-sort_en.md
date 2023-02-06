@@ -8,24 +8,27 @@ The QuickSort algorithm involves doing two things:
 
 It works as follow:
 1. Partition the array.
-    - Take any random element inside the input array (let's name it as **pivot**).
-    - Place the pivot in such a way that the elements towards the _left_ of pivot are _smaller_ while the elements to _right_ of pivot are _greater_ than it.
+ - Take any random element inside the input array (let's name it as **pivot**).
+ - Place the pivot in such a way that the elements towards the _left_ of pivot are _smaller_ while the elements to _right_ of pivot are _greater_ than it.
 
 2. Once the pivot is in place, treat the subarrays to the left and right of pivot as their own arrays and recursively repeat step 1 and step 2.
 3. The base case of recursion is subarrays with _zero_ or _one_ element.
 
-> recursion is the terms which refers to a function calling itself. [See this example](https://bigfrontend.dev/problem/Generate-Fibonacci-Number-with-recursion). In order to prevent a function from infinitely calling itself, we need to add an exit condition. This condition is referred to as _base case_.
+> recursion is the terms which refers to a function calling itself. [See this example](https://bigfrontend.dev/problem/Generate-Fibonacci-Number-with-recursion). To prevent a function from infinitely calling itself, we need to add an exit condition. This condition is _base case_.
 
 ### Steps to Partition the array
 - Assume the _pivot_ to be the **last** element of the array. So `pivotIndex` is `arr.length - 1`
-- Take two pointer, `leftPointer`,starting at left most value of the array i.e `0` and `rightPointer`, starting at right most value of array, _excluding_ pivot i.e `arr.length - 2`.
+- Take two pointer, `leftPointer` and `rightPointer`. `leftPointer` starts at left most value of the array (`0`) and `rightPointer`, starts at right most value of array, _excluding_ pivot ( `arr.length - 2`).
 - Compare the value at `leftPointer` with _pivot_. Move the `leftPointer` one step towards right **only** if _pivot_ is greater than value at `leftPointer`.
 - Once the `leftPointer` stops, activate the `rightPointer`.
 - Compare the value at `rightPointer` with _pivot_. Move the `rightPointer` one step towards left **only** if value at _rightPointer_ is greater the _pivot_.
-- Once the `rightPointer` has stopped, we reach a crossroads. If the `leftPointer` is beyond or equal to `rightPointer`, break out of the loop and move to the last step. Otherwise, swap the values at `leftPointer` and `rightPointer`, increment the `leftPointer` and repeat the above _three_ steps.
+- Once the `rightPointer` has stopped, we reach a crossroads. If the `leftPointer` is beyond or equal to `rightPointer`, break out of the loop and move to the last step. Otherwise, 
+      - swap the values at `leftPointer` and `rightPointer`,
+      - increment the `leftPointer`, and 
+      - repeat the above _three_ steps.
 - Swap the value at `leftPointer` with _pivot_ and return the `leftPointer`.
 
-> Note: Placing the _pivot_ at right place do not essentially mean the elements towards left and right of pivot are now sorted. It just signifies whatever lies to left of _pivot_ is _smaller_ than it, whatever lies on right is _greater_ than it.
+> Note: Placing the _pivot_ at right place does not mean the elements towards left and right of pivot are now sorted. It signifies whatever lies to left of _pivot_ is _smaller_ than it, whatever lies on right is _greater_ than it.
 
 ```
 
@@ -51,7 +54,7 @@ function partition(arr, leftPointer, rightPointer) {
 
     // grab the pivot value
     let pivot = arr[rightPointer];
-     
+ 
     // right pointer starts as second last element or to the immediate right of pivot
     rightPointer -= 1;
 
@@ -79,7 +82,7 @@ function partition(arr, leftPointer, rightPointer) {
 
     // swap the value at left pointer with pivot
     [arr[leftPointer], arr[pivotIndex]] = [arr[pivotIndex], arr[leftPointer]];
-    
+ 
     // since the left pointer essentially now points to pivot, return it
     return leftPointer;
 
@@ -88,16 +91,18 @@ function partition(arr, leftPointer, rightPointer) {
 ```
 
 ### Efficiency
-The speed or efficiency of algorithm is determined by Big O notation. It essentially answer the below question:
+Big O notation is a way to represent speed or efficiency of algorithm. It essentially answer the below question:
 > - How many steps does the algorithm takes for input with `N` elements ?
 > - More importantly, what effect does the increase of input elements(`N`) have on the total number of steps ? What will be the trajectory of steps?
 
 - ### Worst Case Scenario 
-    **When the input array is reversely sorted** like `[5,4,3,2,1]`
-    - `O(N^2)`  
+ **When the input array is reversely sorted** like `[5,4,3,2,1]`
+ - `O(N^2)` 
 
 - ### Average Case Scenario
-    - `O(N logN)`
+ - `O(N logN)`
 
 - ### Best Case Scenario
-    - `O(N logN)`
+ - `O(N logN)`
+
+ > Head over to [Visalgo](https://visualgo.net/en/sorting) to see the see the visual animation.
