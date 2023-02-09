@@ -11,7 +11,7 @@ Simply put
 3. Micro Tasks are created by function calls like `Promise.then()`, `queueMicrotask()` .etc. 
 4. After each Macro task is executed, if there are Micro tasks created, Event loop executes them first before executing next Macro task.
 
-OK, now let's breakdown the code in the question.
+OK, now let's break down the code in the question.
 
 ## Step-sy-step Question Analysis 
 
