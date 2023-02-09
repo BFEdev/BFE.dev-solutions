@@ -64,7 +64,7 @@ const promise = new Promise((resolve) => {
 })
 ```
 
-The arrow function passed to `Promise()` is the executor, from the [ECMA262 Spec](https://tc39.es/ecma262/multipage/control-abstraction-objects.html#sec-promise-executor), we can see that the executor function is executor during the construction of Promise object, so it is synchrouns.
+The arrow function passed to `Promise()` is the executor, from the [ECMA262 Spec](https://tc39.es/ecma262/multipage/control-abstraction-objects.html#sec-promise-executor), we can see that the executor function is executed during the construction of Promise object, so it is synchrouns.
 
 `resolve()` changes the internal state of Promise object to `fulfilled`, but doesn't block the next line of code, thus we have following tasks and logs.
 
