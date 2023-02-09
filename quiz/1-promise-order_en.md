@@ -13,7 +13,7 @@ Simply put
 
 OK, now let's break down the code in the question.
 
-## Step-sy-step Question Analysis 
+## Step-by-step Question Analysis 
 
 ```js
 console.log(1)
