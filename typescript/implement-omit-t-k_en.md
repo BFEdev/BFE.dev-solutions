@@ -1,4 +1,4 @@
-// author by @jichen257
+> author by @jichen257
 
 Note that `K extends keyof any`, which means that K binds to `string | number | symbol`, i.e. to all desirable types of keys in the object
 ```ts
