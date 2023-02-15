@@ -1,4 +1,18 @@
+// @jichen257
 
-まだ解答例がないです。
+問題の分析から、`繰り返し`機能の2つの特徴を見ることができます：1.明確に定義された臨界条件 2.毎回似たようなロジック
+明らかに**再帰**で処理できる。
 
-[コントリビュートしませんか](https://github.com/BFEdev/BFE.dev-solutions/blob/main/typescript/implement-repeatstring-string-number_ja.md)?  [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+アイデアが明確になったら、3つの再帰的プロセスに従って分析します。
+1. 各再帰のパラメータが定義されている：現在の汎化T、繰り返し回数C
+2. 第二に、臨界条件：`T['length'] extends C` 、ここでTは最後の再帰が返す値を取るべきであるので、再帰パラメータにL（最後のT用）の項目を追加する。
+3. 再帰ロジックを確定する。
+   - 臨界条件を満たさない場合は， ``${T}${RepeatString<T, C, [T, . . L]>}`` (Tは1回繰り返し、Lの長さ+1)
+   - は，最後の再帰的な戻り値，つまり ``T`` を取ることで満たされます．
+
+まとめると、以下のようになります
+```ts
+type RepeatString<T extends string, C extends number, L extends string[] = []> = L['length'] extends C
+  ? ''
+  : `${T}${RepeatString<T, C, [T, ...L]>}`;
+```
