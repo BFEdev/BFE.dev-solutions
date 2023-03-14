@@ -43,11 +43,14 @@ Promise.resolve(1)
     console.log(val) // undefined
     return 10
   })
+  // the onFinally callback does not receive any argument
+  // so, val will be undefined above, regardless of the value returned in the prevoius callback
   // finally() returns a Promise, though 10 is returned in above callback, but it doesn't affect the original promise
-  // so Promise of this finally() is fulfilled with value: undefined
   .then((val) => {
     console.log(val) // undefined
   })
+  // since finally does not change the eventual state of the original promise
+  // val will be recieved from the last catch callback ant it is undefined
 ```
 
 Below is a longer version of the explanation based on ECMAScript Spec.
