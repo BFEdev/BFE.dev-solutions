@@ -1,4 +1,4 @@
-> This awesome solution is created by [@SincerelyBrittany](https://github.com/sincerelybrittany) !
+> This awesome solution was created by [@SincerelyBrittany](https://github.com/sincerelybrittany) !
 
 Please refer to the [React homepage](https://legacy.reactjs.org/docs/hooks-effect.html) and [usehooks-ts](https://usehooks-ts.com/react-hook/use-effect-once) to learn more about hooks.
 
