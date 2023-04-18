@@ -1,4 +1,15 @@
+Solution by: [Amyth](https://github.com/amitg01)
 
-There is no solution yet.
-
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/problem/create-a-counter-object_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+```
+function createCounter() {
+  let value = 0
+  return {
+    get count(){
+      return(value++)
+    },
+    set count(_val){
+      return
+    }
+  }
+}
+```
