@@ -1,5 +1,4 @@
-### geekyasif
-
+> [GeekyAsif](https://github.com/geekyasif)
 ```
 function $(el) {
 
