@@ -1,4 +1,15 @@
+function debounce(func, wait) {
+  let timer;
 
-There is no solution yet.
-
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/problem/implement-basic-debounce_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+  return function(...args){
+    if(timer){
+      clearTimeout(timer);
+    }
+      timer=setTimeout(()=>{
+      
+        //func(..args) you can also go for this;
+        
+        func.apply(this,args);
+      },wait);
+  }
+}
