@@ -1,4 +1,22 @@
+Created by [@vekaev](https://github.com/vekaev)
 
-There is no solution yet.
+```javascript
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+function largestDiff(arr) {
+  let smallest = Infinity;
+  let largest = -Infinity;
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/problem/find-the-largest-difference_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+  for (const num of arr) {
+    if (smallest > num) smallest = num;
+    if (num > largest) largest = num
+  }
+
+  if (smallest === Infinity) smallest = 0;
+  if (largest === -Infinity) largest = 0;
+
+  return Math.abs(smallest - largest);
+}
+```
