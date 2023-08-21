@@ -1,3 +1,4 @@
+[Raymond Cheung](https://github.com/raymondcheung)
 
 // implementation using a map for tracking callbacks
 // eventName => callbackFunction[]
@@ -23,7 +24,9 @@ class EventEmitter {
   }
   
   emit(eventName, ...args) {
-    if (!this.events.has(eventName)) {
+    if (!this.events.has(even
+    
+    tName)) {
       return;
     }
   	this.events.get(eventName).forEach(c => c(...args))
