@@ -2,7 +2,7 @@
 
 This code implements a solution to check if a given string containing different types of brackets is valid or not. It uses a stack data structure to maintain the order of opening and closing brackets and ensure their validity.
 
-You can watch a video explanation of this solution [here](https://youtu.be/lwN4SDGTBaY?si=HTgiwVLHvQjaxMuK).
+Created by [@StepanNaryshkov](https://github.com/StepanNaryshkov)
 
 ## Explanation
 
