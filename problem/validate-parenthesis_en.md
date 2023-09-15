@@ -2,8 +2,6 @@
 
 This code implements a solution to check if a given string containing different types of brackets is valid or not. It uses a stack data structure to maintain the order of opening and closing brackets and ensure their validity.
 
-Created by [@StepanNaryshkov](https://github.com/StepanNaryshkov)
-
 ## Explanation
 
 The solution employs a stack to manage the opening and closing brackets. The algorithm iterates through the characters of the input string, and for each character:
@@ -45,3 +43,5 @@ console.log(isValid("(]"));        // Output: false
 The time complexity of this solution is O(n), where 'n' represents the length of the input string. The algorithm iterates through each character in the string exactly once, and the operations performed within each iteration are constant time operations.
 
 The space complexity is also O(n). The space used by the stack is proportional to the length of the input string in the worst case, as it stores opening brackets. The mapping dictionary occupies a constant amount of space, irrespective of the input size.
+
+Created by [@StepanNaryshkov](https://github.com/StepanNaryshkov)
