@@ -1,8 +1,8 @@
-/*
+<!--
  * Author: Jennifer Echenim
  * GitHub: https://github.com/jennievon
  * Description: This is a solution to the problem "Get DOM Tree Height", using TypeScript and 3 different approaches - recursive, iterative BFS and iterative DFS
-*/
+-->
 
 
 
