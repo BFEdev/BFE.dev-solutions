@@ -1,3 +1,11 @@
+/*
+ * Author: Jennifer Echenim
+ * GitHub: https://github.com/jennievon
+ * Description: This is a solution to the problem "Get DOM Tree Height", using TypeScript and 3 different approaches - recursive, iterative BFS and iterative DFS
+*/
+
+
+
 ## Recursive solution 
 Recursion involves breaking the problem down into smaller subproblems until we get to a base case. The base case is the simplest possible case that we can solve. Once we solve the base case, we can combine the solutions to the subproblems to solve the original problem.
 
@@ -38,6 +46,13 @@ function getHeight(tree: HTMLElement | null): number {
   return height + 1;
 }
 ```
+
+- The **time complexity** of this solution is O(n), where n is the number of nodes because we have to traverse the DOM tree once
+
+- The **space complexity** of this solution is O(n) because we have to store the height of each node in the DOM tree
+
+
+
 
 ## Iterative Solution 
 ### Using BFS
@@ -88,6 +103,11 @@ function getHeightIterativeBFS(tree: HTMLElement | null): number {
 }
 ```
 
+- The **time complexity** of this solution is O(n) because we have to traverse the DOM tree once
+- The **space complexity** of this solution is O(n) because we have to store the height of each node in the DOM tree
+
+
+
 
 ### Using DFS
 DFS involves traversing the tree from the "root to the leaves". We use a stack to keep track of the nodes to be visited.
@@ -131,3 +151,7 @@ function getHeightIterativeDFS(tree: HTMLElement | null): number {
   return height;
 }
 ```
+
+- The **time complexity** of this solution is O(n) because we have to traverse the DOM tree once
+
+- The **space complexity** of this solution is O(n) because we have to store the height of each node in the DOM tree
