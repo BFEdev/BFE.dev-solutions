@@ -29,10 +29,11 @@ Let's take a simple example to better understand these steps.
 
 `result = 0`
 
-Iteration 1: Element: `2`. Binary representation: `10`.  `result = result ^ element => 00 ^ 10 => 10 => 2`.
-Iteration 2: Element: `1`. Binary representation: `01`.  `result = result ^ element => 10 ^ 01 => 11 => 3`.
-Please stay with me here, although 3 is not present in the array, we will cancel it out. :)
-Iteration 3: Element: `2`. Binary representation: `10`.  `result = result ^ element => 11 ^ 10 => 01 => 1`.
+**Iteration 1**: Element: `2`. Binary representation: `10`.  `result = result ^ element => 00 ^ 10 => 10 => 2`.
+
+**Iteration 2**: Element: `1`. Binary representation: `01`.  `result = result ^ element => 10 ^ 01 => 11 => 3`. (Please stay with me here, although 3 is not present in the array, we will cancel it out. :))
+
+**Iteration 3**: Element: `2`. Binary representation: `10`.  `result = result ^ element => 11 ^ 10 => 01 => 1`.
 
 Now we return the result of 1. 
 
