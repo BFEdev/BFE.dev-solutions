@@ -1,4 +1,19 @@
+# Solution : Find First Duplicate Character In String
+```js
+//Make A Function 
+const firstDuplicate = (str) => {
+  //Make a Empty Set 
+  const charSet = new Set();
+  //Make A For Of Loop
+  for(const char of str){
+    if(charSet.has(char)){
+      return char;
+    }
+    charSet.add(char);
+  }
+  return null;
+}
 
-There is no solution yet.
-
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/problem/find-the-first-duplicate-character-in-a-string_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+console.log(firstDuplicate("programming"));
+```
+## Easy Solution For New Ones With New Concept Of Set Keyword
