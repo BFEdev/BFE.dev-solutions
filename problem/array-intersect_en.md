@@ -1,4 +1,14 @@
+# Solution For Array Intersect In Javascript And Remove Duplicate values
+### We Use Set To Remove Duplicate Values
 
-There is no solution yet.
+```js
+function getIntersection(arr1, arr2) {
+  let a = new Set(arr1);
+  let b = new Set(arr2);
+  return [...a].filter(a => b.has(a));
+}
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/problem/array-intersect_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+console.log(getIntersection(
+  [1,2,3,4,5,5,6,],[5,4,5,3,5,65,62,22,3,4,5]
+))
+```
