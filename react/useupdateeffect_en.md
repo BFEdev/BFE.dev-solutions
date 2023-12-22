@@ -1,4 +1,21 @@
+import React, {EffectCallback, DependencyList, useRef, useEffect} from 'react';
 
-There is no solution yet.
+export function useUpdateEffect(effect: EffectCallback, deps?: DependencyList) {
+  const initialRenderRef = useRef(true);
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/react/useupdateeffect_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+  useEffect(() => {
+    let cleanupFunction: void | (() => void);
+
+    if (initialRenderRef.current) {
+      initialRenderRef.current = false;
+    } else {
+      cleanupFunction = effect();
+    }
+
+    return () => {
+      if (cleanupFunction) {
+        cleanupFunction();
+      }
+    }
+  }, deps)
+}
