@@ -1,3 +1,4 @@
+```typescript
 import React, {EffectCallback, DependencyList, useRef, useEffect} from 'react';
 
 export function useUpdateEffect(effect: EffectCallback, deps?: DependencyList) {
@@ -19,3 +20,4 @@ export function useUpdateEffect(effect: EffectCallback, deps?: DependencyList) {
     }
   }, deps)
 }
+```
