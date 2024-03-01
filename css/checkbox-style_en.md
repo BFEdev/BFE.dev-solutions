@@ -1,4 +1,26 @@
+```
+input {
+  display: none;
+}
 
-There is no solution yet.
+span {
+  display: flex;
+  align-items: center;
+}
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/css/checkbox-style_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+span::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+}
+
+input:checked + span::before {
+  background-color: green;
+}
+
+input:not(:checked) + span::before {
+  background-color: gray;
+}
+```
