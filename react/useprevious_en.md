@@ -1,4 +1,13 @@
+```typescript
+import {useRef, useEffect} from "react";
 
-There is no solution yet.
+export function usePrevious<T>(value: T): T | undefined {
+  const previous = useRef<T|undefined>(undefined)
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/react/useprevious_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+  useEffect(() => {
+    previous.current = value // Does not trigger rerender unlike a state variable
+  }, [value]); // Run on rerender only if the value has changed
+
+  return previous.current; //As unintuitive as it sounds, this actually returns the previous value, since useEffect only runs on rerender and modifying a ref's value does not trigger a rerender
+}
+```

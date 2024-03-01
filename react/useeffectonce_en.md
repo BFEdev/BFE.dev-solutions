@@ -1,4 +1,10 @@
+```typescript
+import { EffectCallback, useEffect } from 'react'
 
-There is no solution yet.
+export function useEffectOnce(effect: EffectCallback) {
+  useEffect(() => {
+    return effect() //Returns effect's cleanup function
+  }, []) //An empty dependency array means the effect will only run once on component mount
+}
+```
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/react/useeffectonce_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
