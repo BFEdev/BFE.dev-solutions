@@ -1,0 +1,38 @@
+import React , {useEffect, useState, useRef} from 'react';
+
+export function useTimeout(callback: () => void, delay: number) {
+  // your code here
+
+    let timeOut: number|undefined;
+    const savedCallback = useRef(callback)
+    savedCallback.current = callback;
+ 
+   useEffect(() => {
+    timeOut = setTimeout(() => savedCallback.current(), delay)
+
+    return () => {
+      clearTimeout(timeOut);
+    }
+  }, [delay]);
+  
+}
+
+// if you want to try your code on the right panel
+// remember to export App() component like below
+
+export function App() {
+  const [count , setCount] = useState(0);
+
+  const handleCount = () => {
+    setCount(prev => prev+1);
+  }
+
+  useTimeout(handleCount, 2000);
+
+  return (
+    <>
+    <p>Count :  {count}</p>
+    <button onClick={handleCount}>Increment</button>
+    </>
+  )
+}
