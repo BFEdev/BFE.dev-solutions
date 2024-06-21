@@ -1,5 +1,5 @@
 > This solution is submitted by [@CaptainOfFlyingDutchman](https://github.com/CaptainOfFlyingDutchman)
->
+
 To implement this solution we need to figure out 2 things
 
 1. How many times we need to iterate through the array.
