@@ -1,4 +1,34 @@
 
-There is no solution yet.
+@strativd 
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/react/usetimeout_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+```ts
+import { useEffect, useRef } from 'react'
+
+export function useTimeout(callback: () => void, delay: number | null): void {
+  const savedCallback = useRef(callback)
+
+  // Remember the latest callback if it changes.
+  useEffect(() => {
+    savedCallback.current = callback
+  }, [callback])
+
+  // Set up the timeout.
+  useEffect(() => {
+    // Don't schedule if no delay is specified.
+    // Note: 0 is a valid value for delay.
+    if (!delay && delay !== 0) {
+      return
+    }
+
+    const id = setTimeout(() => {
+      savedCallback.current()
+    }, delay)
+
+    return () => {
+      clearTimeout(id)
+    }
+  }, [delay])
+}
+```
+
+Credit: [usehooks-ts.com — `useTimeout`](https://usehooks-ts.com/react-hook/use-timeout)
