@@ -180,3 +180,19 @@ function flat(arr, depth = 1) {
 For time complexity, each round we remove an item or a bracket pair from the stack, so time cost is linear to the count of them. (The final `reverse()` is linear to the count of items, which doesn't affect the overall complexity)
 
 For space complexity, we used a stack so also linear.
+
+## Iteration approach - using Array.prototype.concat
+
+Very short and easy to understand.
+
+```js
+function flat(arr, depth = 1) {
+  let result = [...arr]
+  while (
+    result.findIndex(item => Array.isArray(item)) > -1 && depth--
+  ) {
+    result = [].concat(...result)
+  }
+  return result
+}
+```
