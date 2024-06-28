@@ -1,4 +1,20 @@
+Submission by @gouravjeet
+```typescript
+import React, { useState } from 'react'
+export function PhoneNumberInput() {
+  const [inputValue, setInputValue] = useState('');
 
-There is no solution yet.
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let value = event.target.value.replace(/\D/g,''); // Replace non-digit number with empty string
+    if(value.length > 10) value = value.slice(0, 10);
+    if(value.length > 6) value = `${value.slice(0,6)}-${value.slice(6)}`
+    if(value.length > 3) value = `(${value.slice(0,3)})${value.slice(3)}`
+    setInputValue(value)
+  }
+  return <input onInput={handleInputChange} value={inputValue} type="string" data-testid="phone-number-input"/>
+}
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/react/phone-number-input_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+export function App() {
+  return <div><PhoneNumberInput/></div>
+}
+```
