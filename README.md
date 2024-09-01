@@ -1,3 +1,7 @@
+> Updates on Sep 2024.
+> 
+> This repo is archived. We expected high quality contents from contents and it didn't work out. We're trying new approach and this repo is archived. Thanks to all past contributors, your contents won't show up directly on BFE.dev but will continue to exist here. 
+
 # BFE.dev-solutions
 
 Thanks for using [BFE.dev](https://bfe.dev) and showing interest in contributing. This repo holds the solutions for questions on BFE.dev.
