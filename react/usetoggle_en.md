@@ -1,4 +1,13 @@
+```typescript
+import {useState} from "react";
 
-There is no solution yet.
+export function useToggle(on: boolean): [boolean, () => void] {
+  const [status, setStatus] = useState(on);
 
-Would you like to [contribute to the solution](https://github.com/BFEdev/BFE.dev-solutions/blob/main/react/usetoggle_en.md)? [Contribute guideline](https://github.com/BFEdev/BFE.dev-solutions#how-to-contribute)
+  const toggleStatus = () => {
+    setStatus(!status);
+  }
+
+  return [status, toggleStatus]
+}
+```
